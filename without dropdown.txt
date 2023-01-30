@@ -1,0 +1,237 @@
+  import logo from './logo.svg';
+  import './App.css';
+  import * as React from 'react'
+  import * as ReactDOM from 'react-dom'
+  import ReactJsonViewCompare from 'react-json-view-compare';
+
+  const App = () => {
+      const [json1] = React.useState({
+      "squadName": "test",
+      "homeTown": "Metro City",
+      "formed": 2016,
+      "secretBase": "Super tower",
+      "active": "true", 
+    "data1": {
+      "subkey":"1",
+      "Subkey2":"2"
+    },
+    "data2": {
+      "subkey1":"33",
+      "Subkey111":"44"
+    },
+    "data3": {
+      "Subkey2":"2",
+      "Subkey3":"4"
+  }
+    
+    })
+      const [json2] = React.useState({
+      "squadName": "test111",
+      "homeTown": "NA",
+      "formed": 2016,
+      "secretBase": "Super tower11",
+      "active": "false",
+      "data1": {
+      "subkey":"1",
+      "Subkey2":"2",
+      "Subkey3":"4"
+      },
+      "data3": {
+        "subkey":"1",
+        "Subkey2":"2",
+        "Subkey3":"4"
+    }
+    
+    })
+    //Code for fetching the entire keys from json 1 and json 2
+    const [totalKeyArray, objectVal] = React.useState([0]);
+        Object.keys(json1).forEach(function(key,value) {
+          if(typeof json1[key] === "object"){
+            if(json1[key] && json2[key]){
+              var subJson1ValueCount=Object.values(json1[key]).length;
+              var subJson2ValueCount=Object.values(json2[key]).length;
+              if(subJson1ValueCount>=subJson2ValueCount){
+                totalKeyArray.push({
+                  [key]:json1[key]
+                })
+                return;
+              }
+             }           
+             else{
+            totalKeyArray.push({
+              [key]:json1[key]
+            })
+          }
+        }
+            else{
+              totalKeyArray.push(key)
+            }
+        });
+        Object.keys(json2).forEach(function(key,value) {
+          debugger;
+          if(typeof json2[key] === "object"){
+            if(json1[key] && json2[key]){
+              var subJson1ValueCount=Object.values(json1[key]).length;
+              var subJson2ValueCount=Object.values(json2[key]).length;
+              if(subJson2ValueCount>=subJson1ValueCount){
+                totalKeyArray.push({
+                  [key]:json2[key]
+                })
+                return;
+              }
+             }           
+             else{
+            totalKeyArray.push({
+              [key]:json2[key]
+            })
+          }
+        }
+            else{
+              totalKeyArray.push(key)
+            }
+      });
+
+      const uniqueKeys = Array.from(new Set(totalKeyArray));
+      
+      const index = uniqueKeys.indexOf(0);
+      if (index > -1) { // only splice array when item is found
+        uniqueKeys.splice(index, 1); // 2nd parameter means remove one item only
+      }
+
+      //code for fetching the values from json 1 and Json 2
+      var  firstArr=[];
+      var  secondArr=[];
+      const fetchJsonValues = (obj, fn) => {
+        const values = Object.values(obj)
+        values.forEach(val => 
+            val && typeof val === "object" ? fetchJsonValues(val, fn) : fn(val)
+            )
+            
+    }
+            const print = (val) => firstArr.push(val);
+            const print2 = (val) => secondArr.push(val);
+            fetchJsonValues(json1, print);
+            fetchJsonValues(json2,print2);
+
+
+            //Code for  table structure of JSON1 And JSON2
+            const items = [];
+                Object.keys(uniqueKeys).forEach(function(key,value) {
+                  if(typeof uniqueKeys[key]==="object"){
+                    var totalObjectKeys=Object.keys(uniqueKeys[key])[0];
+                items.push(
+                    <tr>
+                    <td><input type='text' class="form-control" value={totalObjectKeys}/></td>
+                    <td ><button id="btnAdd" name="btnAdd" class="span1" >+</button></td>
+                  
+                  
+                    </tr>
+                  )
+                  if(Object.keys(uniqueKeys[key][totalObjectKeys]).length>=1){
+                    for ( var i=0; i< Object.keys(uniqueKeys[key][totalObjectKeys]).length; i++){
+                      var innerValue=Object.keys(uniqueKeys[key][totalObjectKeys])[i];
+                      items.push(
+                        <tr>
+                        
+                        <td ><input type='text'  class="inputClass" value={Object.keys(uniqueKeys[key][totalObjectKeys])[i]}/></td>
+                        <td > <input type='text'  value={(typeof json1[totalObjectKeys] !== "undefined" &&  json1[totalObjectKeys][innerValue] !== undefined)? json1[totalObjectKeys][innerValue]  : 'null'}/></td>
+                          <td> <input type='text' value={typeof json2[totalObjectKeys] !== "undefined" ? json2[totalObjectKeys][innerValue]  : 'null'}/></td>
+                        </tr>
+                        )
+                  }
+
+                  }
+
+                    }
+                  else{
+                    items.push(
+                    <tr>
+                    <td>
+                      <input type='text' class="form-control" value={uniqueKeys[key]}/>
+                    </td>
+                    <td> <input type='text' class="form-control" value={json1[uniqueKeys[key]] ? json1[uniqueKeys[key]] : 'null'}/></td>
+                    <td> <input type='text' class="form-control" value={json2[uniqueKeys[key]] ? json2[uniqueKeys[key]] : 'null'}/></td>
+                  </tr>
+                    )
+                  }
+              });
+
+// Code of merging Div 
+          const mergeitems = [];
+
+          Object.keys(uniqueKeys).forEach(function(key,value) {
+            if(typeof uniqueKeys[key]==="object"){
+              var totalObjectKeys=Object.keys(uniqueKeys[key])[0];
+              mergeitems.push(
+              <tr>
+              <td><input type='text' class="form-control" value={totalObjectKeys}/></td>
+              {/* <td ><button id="btnAdd" name="btnAdd" class="span1" >+</button></td> */}
+            
+            
+              </tr>
+            )
+            if(Object.keys(uniqueKeys[key][totalObjectKeys]).length>=1){
+              for ( var i=0; i< Object.keys(uniqueKeys[key][totalObjectKeys]).length; i++){
+                var innerValue=Object.keys(uniqueKeys[key][totalObjectKeys])[i];
+                mergeitems.push(
+                  <tr>
+                  
+                  <td ><input type='text'  class="inputClass" value={Object.keys(uniqueKeys[key][totalObjectKeys])[i]}/></td>
+
+                  <select>
+              <option  value={(typeof json1[totalObjectKeys] !== "undefined" &&  json1[totalObjectKeys][innerValue] !== undefined)? json1[totalObjectKeys][innerValue]  : 'null'}>{(typeof json1[totalObjectKeys] !== "undefined" &&  json1[totalObjectKeys][innerValue] !== undefined)? json1[totalObjectKeys][innerValue]  : 'null'}</option>
+              <option  value={(typeof json2[totalObjectKeys] !== "undefined" &&  json2[totalObjectKeys][innerValue] !== undefined)? json2[totalObjectKeys][innerValue]  : 'null'}>{(typeof json2[totalObjectKeys] !== "undefined" &&  json2[totalObjectKeys][innerValue] !== undefined)? json2[totalObjectKeys][innerValue]  : 'null'}</option>
+              </select>
+                  </tr>
+                  )
+            }
+
+            }
+
+              }
+            else{
+              mergeitems.push(
+              <tr>
+              <td>
+                <input type='text' class="form-control" value={uniqueKeys[key]}/>
+              </td>
+              <td>
+                <select>
+              <option  value={json1[uniqueKeys[key]] ? json1[uniqueKeys[key]] : 'null'}>{json1[uniqueKeys[key]] ? json1[uniqueKeys[key]] : 'null'}</option>
+              <option  value={json2[uniqueKeys[key]] ? json2[uniqueKeys[key]] : 'null'}>{json2[uniqueKeys[key]] ? json2[uniqueKeys[key]] : 'null'}</option>
+              </select>
+              </td>
+            </tr>
+              )
+            }
+        });
+
+
+    return (
+
+    <div class="columns">
+      <div class="column">
+        <h2 class="text-center">JSon Structure</h2>
+        <table>
+          <tbody>
+          {items}
+          </tbody>
+        </table>
+      </div>
+      <div class="column">
+        <h2>Compare</h2>
+      <span><ReactJsonViewCompare oldData={json1} newData={json2} /></span>
+      </div>
+      <div class="column">
+        <h2>Merge</h2>
+        <table id="mergeTable">
+          <tbody>
+          {mergeitems}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    )
+  }
+
+  export default App;
