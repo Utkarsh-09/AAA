@@ -1,0 +1,271 @@
+3rd feb
+
+import logo from './logo.svg';
+  import './App.css';
+  import * as React from 'react'
+  import * as ReactDOM from 'react-dom'
+  import ReactJsonViewCompare from 'react-json-view-compare';
+
+  const App2 = () => {
+
+      const [json1] = React.useState({
+      "CONTRACT ANNIVERSARIES": "December 1, 2023 and the same day of each subsequent year",
+      "CONTRACT EFFECTIVE DATE": "December 1, 2018",
+      "CONTRACT HOLDER": "Osisko Gold Royalties Ltd.",
+      "CONTRACT NUMBER": "102788",
+    "ProofDependency": {
+      "Amount": "As elected by the employee, units of $10,000\nMaximum \u2013 $500,000",
+      "Proof of good health":"Required on the initial optional amount of coverage and any increase in that coverage requested by the employee"
+    },
+    "data2": {
+      "Reduction":"Coverage is reduced to 50% of the above amount at age 65",
+      "Subkey111":"44"
+    },
+    "coverages": {
+      "Subkey2":"2",
+      "Subkey3":"4"
+  }
+    
+    })
+      const [json2] = React.useState({
+    
+        "CONTRACT NUMBER": "102788",
+        "ProofDependency": {
+          "Amount": "As elected by the employee, units of $10,000\nMaximum \u2013 $500,000",
+          "Proof of good health":"Required on the initial optional amount of coverage and any increase in that coverage requested by the employee"
+        },
+        "data2": {
+          "Reduction":"Coverage is reduced to 50% of the above amount at age 78",
+          "Subkey111":"44"
+        },
+      "coverages": {
+        "subkey":"1",
+        "Subkey2":"2",
+        "Subkey3":"4"
+    }
+    
+    })
+    const [selected, setSelected] = React.useState();
+    const handleChange = event => {
+      console.log(event.target.value);
+
+    };
+  
+    //Code for fetching the entire keys from json 1 and json 2
+    const [totalKeyArray, objectVal] = React.useState([0]);
+        Object.keys(json1).forEach(function(key,value) {
+          if(typeof json1[key] === "object"){
+            if(json1[key] && json2[key]){
+              var subJson1ValueCount=Object.values(json1[key]).length;
+              var subJson2ValueCount=Object.values(json2[key]).length;
+              debugger;
+              if(subJson1ValueCount>=subJson2ValueCount){
+                totalKeyArray.push({
+                  [key]:json1[key]
+                })
+                return;
+              }
+             }           
+             else{
+            totalKeyArray.push({
+              [key]:json1[key]
+            })
+          }
+        }
+            else{
+              totalKeyArray.push(key)
+            }
+        });
+        Object.keys(json2).forEach(function(key,value) {
+          if(typeof json2[key] === "object"){
+            if(json1[key] && json2[key]){
+              var subJson1ValueCount=Object.values(json1[key]).length;
+              var subJson2ValueCount=Object.values(json2[key]).length;
+              if(subJson2ValueCount>subJson1ValueCount){
+                totalKeyArray.push({
+                  [key]:json2[key]
+                })
+                return;
+              }
+             }           
+             else{
+            totalKeyArray.push({
+              [key]:json2[key]
+            })
+          }
+        }
+            else{
+              totalKeyArray.push(key)
+            }
+      });
+
+      const uniqueKeys = Array.from(new Set(totalKeyArray));
+      
+      const index = uniqueKeys.indexOf(0);
+      if (index > -1) { // only splice array when item is found
+        uniqueKeys.splice(index, 1); // 2nd parameter means remove one item only
+      }
+
+      //code for fetching the values from json 1 and Json 2
+      var  firstArr=[];
+      var  secondArr=[];
+      const fetchJsonValues = (obj, fn) => {
+        const values = Object.values(obj)
+        values.forEach(val => 
+            val && typeof val === "object" ? fetchJsonValues(val, fn) : fn(val)
+            )
+            
+    }
+            const print = (val) => firstArr.push(val);
+            const print2 = (val) => secondArr.push(val);
+            fetchJsonValues(json1, print);
+            fetchJsonValues(json2,print2);
+
+            
+
+          const  showRow=(id,length)=>{
+            for(var i=0;i<length;i++){
+            document.getElementById(id+'1'+i).style.display = ""; 
+            document.getElementById(id+'2'+i).style.display = "";
+            document.getElementById(id+'3'+i).style.display = ""; 
+        
+            }
+
+          
+           }
+       
+
+           const  hideRow=(id,length)=>{
+            for(var i=0;i<length;i++){
+            document.getElementById(id+'1'+i).style.display = "none"; 
+            document.getElementById(id+'2'+i).style.display = "none";
+            document.getElementById(id+'3'+i).style.display = "none"; 
+            }
+
+          
+           }
+       
+         
+         
+            //Code for  table structure of JSON1 And JSON2
+            const items = [];
+                Object.keys(uniqueKeys).forEach(function(key,value) {
+                  if(typeof uniqueKeys[key]==="object"){
+                    var totalObjectKeys=Object.keys(uniqueKeys[key])[0];
+                items.push(
+                    <tr>
+                    <td>{totalObjectKeys}</td>
+                    <td ><button id="btnAdd" name="btnAdd" class="span1"  onClick={(e) => showRow(totalObjectKeys, Object.keys(uniqueKeys[key][totalObjectKeys]).length)} >+</button></td>
+                    <td ><button  name="btnAdd" class="span1" id="buttonhide"   onClick={(e) => hideRow(totalObjectKeys, Object.keys(uniqueKeys[key][totalObjectKeys]).length)} >-</button></td>
+                  
+                    </tr>
+                  )
+                  if(Object.keys(uniqueKeys[key][totalObjectKeys]).length>=1){
+                    for ( var i=0; i< Object.keys(uniqueKeys[key][totalObjectKeys]).length; i++){
+                      var innerValue=Object.keys(uniqueKeys[key][totalObjectKeys])[i];
+                      items.push(
+                        <tr >
+                        <td id={totalObjectKeys+'1'+i}> {Object.keys(uniqueKeys[key][totalObjectKeys])[i]}</td>
+                        <td id={totalObjectKeys+'2'+i}>   {(typeof json1[totalObjectKeys] !== "undefined" &&  json1[totalObjectKeys][innerValue] !== undefined)? json1[totalObjectKeys][innerValue]  : 'null'}</td>
+                          <td id={totalObjectKeys+'3'+i}>  {typeof json2[totalObjectKeys] !== "undefined" ? json2[totalObjectKeys][innerValue]  : 'null'}</td>
+                        </tr>
+                        )
+                  }
+
+                  }
+
+                    }
+                  else{
+                    items.push(
+                        
+                    <tr>
+                    <td>
+                      {uniqueKeys[key]}
+                    </td>
+                    <td> {json1[uniqueKeys[key]] ? json1[uniqueKeys[key]] : 'null'}</td>
+                    <td> value={json2[uniqueKeys[key]] ? json2[uniqueKeys[key]] : 'null'}</td>
+                  </tr>
+                    )
+                  }
+              });
+
+// Code of merging Div 
+          const mergeitems = [];
+
+          Object.keys(uniqueKeys).forEach(function(key,value) {
+            if(typeof uniqueKeys[key]==="object"){
+              var totalObjectKeys=Object.keys(uniqueKeys[key])[0];
+              mergeitems.push(
+              <tr>
+              <td>{totalObjectKeys}</td>
+              {/* <td ><button id="btnAdd" name="btnAdd" class="span1" >+</button></td> */}
+            
+            
+              </tr>
+            )
+            if(Object.keys(uniqueKeys[key][totalObjectKeys]).length>=1){
+              for ( var i=0; i< Object.keys(uniqueKeys[key][totalObjectKeys]).length; i++){
+                var innerValue=Object.keys(uniqueKeys[key][totalObjectKeys])[i];
+                mergeitems.push(
+                  <tr>
+                  
+                  <td >{Object.keys(uniqueKeys[key][totalObjectKeys])[i]}</td>
+
+                  <select value={selected} onChange={handleChange}>
+              <option  value={(typeof json1[totalObjectKeys] !== "undefined" &&  json1[totalObjectKeys][innerValue] !== undefined)? json1[totalObjectKeys][innerValue]  : 'null'}>{(typeof json1[totalObjectKeys] !== "undefined" &&  json1[totalObjectKeys][innerValue] !== undefined)? json1[totalObjectKeys][innerValue]  : 'null'}</option>
+              <option  value={(typeof json2[totalObjectKeys] !== "undefined" &&  json2[totalObjectKeys][innerValue] !== undefined)? json2[totalObjectKeys][innerValue]  : 'null'}>{(typeof json2[totalObjectKeys] !== "undefined" &&  json2[totalObjectKeys][innerValue] !== undefined)? json2[totalObjectKeys][innerValue]  : 'null'}</option>
+              </select>
+                  </tr>
+                  )
+            }
+
+            }
+
+              }
+            else{
+              mergeitems.push(
+              <tr>
+              <td>
+                {uniqueKeys[key]}
+              </td>
+              <td>
+                <select value={selected} onChange={handleChange}>
+              <option  value={json1[uniqueKeys[key]] ? json1[uniqueKeys[key]] : 'null'}>{json1[uniqueKeys[key]] ? json1[uniqueKeys[key]] : 'null'}</option>
+              <option  value={json2[uniqueKeys[key]] ? json2[uniqueKeys[key]] : 'null'}>{json2[uniqueKeys[key]] ? json2[uniqueKeys[key]] : 'null'}</option>
+              </select>
+              </td>
+            </tr>
+              )
+            }
+        });
+       
+
+    return (
+
+    <div class="columns">
+      <div class="column">
+        <h2 class="text-center">Json Structure</h2>
+        <table>
+          <tbody>
+          {items}
+          </tbody>
+        </table>
+      </div>
+      <div class="seperator"></div>
+     {/* <div class="column">
+     
+        <h2 class="headerMerge">Merge</h2>
+        
+        <table id="mergeTable" class="mergeTable">
+          <tbody>
+          {mergeitems}
+          </tbody>
+        </table>
+       
+       
+    </div>  */}
+    </div>
+    )
+  }
+
+  export default App2;
