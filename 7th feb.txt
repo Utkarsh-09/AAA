@@ -1,0 +1,678 @@
+import logo from './logo.svg'
+import './App.css'
+import * as React from 'react'
+
+const App = () => {
+    const [json1] = React.useState({
+      "Contract Details": {
+          "Benefit Details":     
+            [{
+                  "Classes": [
+                      "Class 1 – All regular employees",
+                      "Class 3 – President and Vice-President",
+                      "Class 7 – Employees of Falco Resources Ltd."
+                  ],
+                  "Coverage": [
+                      "\tEmployee Life – Basic and Optional",
+                      "\tDependent Life – Basic and Spouse Optional",
+                      "\tAccidental Death and Dismemberment",
+                      "\tLong-Term Disability",
+                      "\tCritical Illness –Employee Optional and Spouse and Child Optional",
+                      "\tExtended Health Care ",
+                      "\tDental Care"
+                  ],
+                  "Coverages": [
+                      {
+                          "Coveragesubtype": "",
+                          "Coveragetype": "Employee Life",
+                          "keys": [
+                              {
+                                  "Amount": [
+                                      "As elected by the employee, units of $10,000\nMaximum – $500,000"
+                                  ],
+                                  "Proof of good health": [
+                                      "Required on the initial optional amount of coverage and any increase in that coverage requested by the employee"
+                                  ],
+                                  "Reduction": [
+                                      "Coverage is reduced to 50% of the above amount at age 65"
+                                  ],
+                                  "Reduction0": [
+                                      "If the employee continues, or begins, to work after having reached age 65, Sun Life will calculate the amount for which the employee would have been eligible prior to age 65, and it is that amount that will be used to determine if the employee must submit proof of good health; then, Sun Life applies the above reduction clause to calculate the amount for which the employee is eligible"
+                                  ],
+                                  "Termination": [
+                                      "When the employee retires or reaches age 71, whichever is earlier",
+                                      "Optional Life"
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "Coveragesubtype": "",
+                          "Coveragetype": "Dependent Life",
+                          "keys": [
+                              {
+                                  "Amount": [
+                                      "As elected by the employee, units of $10,000\nMaximum – $500,000"
+                                  ],
+                                  "Proof of good health": [
+                                      "Required on the initial optional amount of coverage and any increase in that coverage requested by the employee"
+                                  ],
+                                  "Termination": [
+                                      "When the employee retires or reaches age 71, whichever is earlier",
+                                      "Spouse Optional Life "
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "Coveragesubtype": "",
+                          "Coveragetype": "Accidental Death and Dismemberment",
+                          "keys": [
+                              {
+                                  "Amount": [
+                                      "Equal to Employee Basic Life Coverage"
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "Coveragesubtype": "",
+                          "Coveragetype": "Long-Term Disability",
+                          "keys": [
+                              {
+                                  "Cost of living adjustment": [
+                                      "A cost of living adjustment will be applied in January of each year to reflect the average increase, if any, in the Canadian Consumer Price Index over the 12 month period ending 3 months prior to the date of any adjustment. Any percentage increase to the benefit payment cannot exceed 3%. In the event of deflation, Sun Life will not decrease the benefit payment."
+                                  ],
+                                  "Elimination period": [
+                                      "119 days of uninterrupted total disability or the last day benefits are payable under any Short-Term disability, loss of income or other salary continuation plan, whichever is later"
+                                  ],
+                                  "Maximum amount": [
+                                      "75% of monthly basic earnings up to a maximum of $15,000"
+                                  ],
+                                  "Maximum benefit period": [
+                                      "Period ending on the last day of the month in which the employee reaches age 65"
+                                  ],
+                                  "Proof of good health": [
+                                      "Required for coverage in excess of $9,000, and any increase in that coverage of 25% or more or $500, whichever is greater"
+                                  ],
+                                  "Termination": [
+                                      "When the employee reaches age 65 less the elimination period or the date the employee retires, whichever is earlier"
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "Coveragesubtype": "",
+                          "Coveragetype": "Critical Illness",
+                          "keys": [
+                              {
+                                  "Amount": [
+                                      "As elected by the employee, units of $5,000 per child\nMaximum – $20,000"
+                                  ],
+                                  "Amount0": [
+                                      "Minimum – $20,000"
+                                  ],
+                                  "Proof of good health": [
+                                      "Required on the initial optional amount of coverage, unless enrolment is made within 31 days of the eligibility date, and any increase in that coverage requested by the employee"
+                                  ],
+                                  "Termination": [
+                                      "When the employee retires or reaches age 65, or when the spouse reaches age 65, whichever is earlier",
+                                      "Child Optional Critical Illness"
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "Coveragesubtype": "",
+                          "Coveragetype": "Extended Health Care",
+                          "keys": [
+                              {
+                                  "Benefit year": [
+                                      "January 1 to December 31"
+                                  ],
+                                  "Chronic care hospital": [
+                                      "100% of the difference between the cost of a ward and a semi-private room, for a maximum of 180 days per person per benefit year"
+                                  ],
+                                  "Convalescent hospital": [
+                                      "100% of the difference between the cost of a ward and a semi-private room, for a maximum of 180 days for all periods of treatment of an illness due to the same or related causes"
+                                  ],
+                                  "Deductible": [
+                                      "None",
+                                      "Reimbursement level"
+                                  ],
+                                  "In-province hospital": [
+                                      "100% of the difference between the cost of a ward and a private room"
+                                  ],
+                                  "Maximum benefit": [
+                                      "Unlimited"
+                                  ],
+                                  "Medical services and equipment": [
+                                      "100%"
+                                  ],
+                                  "Out-of-pocket maximum": [
+                                      "For employees residing in Québec, expenses incurred for drugs listed in the Régie de l'assurance-maladie du Québec (RAMQ) drug formulary and not reimbursed under this plan as a result of the application of the deductible or the reimbursement percentage are limited in each calendar year to the yearly maximum contribution set by the RAMQ plan. The out-of-pocket maximum applies separately to the employee and the employee's spouse. Any drug expenses incurred for children are part of the out-of-pocket maximum of the employee."
+                                  ],
+                                  "Out-of-province emergency expenses": [
+                                      "100%",
+                                      [
+                                          "Emergency Travel Assistance included"
+                                      ]
+                                  ],
+                                  "Out-of-province referred expenses": [
+                                      "80%"
+                                  ],
+                                  "Paramedical services": [
+                                      "100% up to a maximum of $1,000 per person per benefit year for qualified psychologists, social workers, clinical counsellors, psychotherapists or psychoeducators",
+                                      [
+                                          "100% up to a combined maximum of $2,500 per person per benefit year for all the qualified paramedical practitioners listed below:",
+                                          "massage therapists or kinesitherapists",
+                                          "speech therapists",
+                                          "physiotherapists or rehabilitation therapists",
+                                          "naturopaths",
+                                          "acupuncturists",
+                                          "audiologists",
+                                          "dieticians",
+                                          "occupational therapists",
+                                          "athletic therapists",
+                                          "osteopaths or osteopathic practitioners, including a maximum of one x-ray examination each benefit year",
+                                          "chiropractors, including a maximum of one x-ray examination each benefit year",
+                                          "podiatrists or chiropodists, including a maximum of one x-ray examination each benefit year"
+                                      ]
+                                  ],
+                                  "Prescription drugs": [
+                                      "100% for generic drugs and brand name drugs that do not have a generic equivalent and 90% for other brand name drugs and all other eligible expenses",
+                                      [
+                                          "For employees residing in Québec, the reimbursement percentage is increased to 100% for drugs listed in the Régie de l'assurance-maladie du Québec (RAMQ) drug formulary once the out-of-pocket maximum has been reached. However, if the drug submitted for reimbursement has a lower priced equivalent drug, only the cost of the lowest priced equivalent drug will be considered at 100%, unless Sun Life specifically approved the cost of the higher priced drug."
+                                      ]
+                                  ],
+                                  "Québec drug insurance plan": [
+                                      "Any conditions under this plan that do not meet the requirements under the Québec drug insurance plan are automatically adjusted to meet those requirements"
+                                  ],
+                                  "Substance abuse rehabilitation centre": [
+                                      "100% of the difference between the cost of a ward and a private room, up to a maximum of $80 per day and a lifetime maximum of $2,500 per person"
+                                  ],
+                                  "Vision care": [
+                                      "100% up to a maximum of $500 per person in any 24 month period"
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "Coveragesubtype": "",
+                          "Coveragetype": "Dental Care",
+                          "keys": [
+                              {
+                                  "Basic dental procedures": [
+                                      "100%"
+                                  ],
+                                  "Benefit year": [
+                                      "January 1 to December 31"
+                                  ],
+                                  "Benefit year maximum": [
+                                      "$2,000 per person"
+                                  ],
+                                  "Benefit year maximum0": [
+                                      "Orthodontic procedures are not included in the benefit year maximum. A separate lifetime maximum applies."
+                                  ],
+                                  "Deductible": [
+                                      "None",
+                                      "Reimbursement level"
+                                  ],
+                                  "Fee guide": [
+                                      "The current fee guide for general practitioners approved by the Dental Association in the province where the treatment is received"
+                                  ],
+                                  "Lifetime maximum": [
+                                      "Orthodontic procedures – $2,500 per person"
+                                  ],
+                                  "Major dental procedures": [
+                                      "80%"
+                                  ],
+                                  "Orthodontic procedures": [
+                                      "50% "
+                                  ],
+                                  "Preventive dental procedures": [
+                                      "100%"
+                                  ]
+                              }
+                          ]
+                      }
+                  ],
+                  "Eligibility requirements": [
+                      "An employee must:"
+                  ],
+                  "Termination": [
+                      "Termination of coverage may vary from benefit to benefit as indicated in this section. In addition, coverage may end on an earlier date, as specified in General Conditions of the Coverage."
+                  ],
+                  "Waiting period": [
+                      "None"
+                  ]
+              }],
+          "CONTRACT ANNIVERSARIES": "December 1, 2023 and the same day of each subsequent year",
+          "CONTRACT EFFECTIVE DATE": "December 1, 2018",
+          "CONTRACT HOLDER": "Osisko Gold Royalties Ltd.",
+          "CONTRACT NUMBER": "102788",
+          "PREMIUM DUE DATES": "The effective date and the first day of each following month",
+          "RENEWAL RATE EFFECTIVE DATES": "",
+          "renewal rate effective Dates": "December 1, 2023 and the same day of each subsequent year"   
+  }})
+    const [json2] = React.useState( {
+          "Contract Details": {
+            "Benefit Details": 
+              [{
+                    "Classes": [
+                        "Class 1 – All regular employees",
+                        "Class 3 – President and Vice-President",
+                        "Class 7 – Employees of Falco Resources Ltd."
+                    ],
+                    "Coverage": [
+                        "\tEmployee Life – Basic and Optional",
+                        "\tDependent Life – Basic and Spouse Optional",
+                        "\tAccidental Death and Dismemberment",
+                        "\tLong-Term Disability",
+                        "\tCritical Illness –Employee Optional and Spouse and Child Optional",
+                        "\tExtended Health Care ",
+                        "\tDental Care"
+                    ],
+                    "Coverages": [
+                        {
+                            "Coveragesubtype": "",
+                            "Coveragetype": "Employee Life",
+                            "keys": [
+                                {
+                                    "Amount": [
+                                        "As elected by the employee, units of $10,000\nMaximum – $500,000"
+                                    ],
+                                    "Proof of good health": [
+                                        "Required on the initial optional amount of coverage and any increase in that coverage requested by the employee"
+                                    ],
+                                    "Reduction": [
+                                        "Coverage is reduced to 50% of the above amount at age 65"
+                                    ],
+                                    "Reduction0": [
+                                        "If the employee continues, or begins, to work after having reached age 65, Sun Life will calculate the amount for which the employee would have been eligible prior to age 65, and it is that amount that will be used to determine if the employee must submit proof of good health; then, Sun Life applies the above reduction clause to calculate the amount for which the employee is eligible"
+                                    ],
+                                    "Termination": [
+                                        "When the employee retires or reaches age 71, whichever is earlier",
+                                        "Optional Life"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Coveragesubtype": "",
+                            "Coveragetype": "Dependent Life",
+                            "keys": [
+                                {
+                                    "Amount": [
+                                        "As elected by the employee, units of $10,000\nMaximum – $500,000"
+                                    ],
+                                    "Proof of good health": [
+                                        "Required on the initial optional amount of coverage and any increase in that coverage requested by the employee"
+                                    ],
+                                    "Termination": [
+                                        "When the employee retires or reaches age 71, whichever is earlier",
+                                        "Spouse Optional Life "
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Coveragesubtype": "",
+                            "Coveragetype": "Accidental Death and Dismemberment",
+                            "keys": [
+                                {
+                                    "Amount": [
+                                        "Equal to Employee Basic Life Coverage"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Coveragesubtype": "",
+                            "Coveragetype": "Long-Term Disability",
+                            "keys": [
+                                {
+                                    "Cost of living adjustment": [
+                                        "A cost of living adjustment will be applied in January of each year to reflect the average increase, if any, in the Canadian Consumer Price Index over the 12 month period ending 3 months prior to the date of any adjustment. Any percentage increase to the benefit payment cannot exceed 3%. In the event of deflation, Sun Life will not decrease the benefit payment."
+                                    ],
+                                    "Elimination period": [
+                                        "119 days of uninterrupted total disability or the last day benefits are payable under any Short-Term disability, loss of income or other salary continuation plan, whichever is later"
+                                    ],
+                                    "Maximum amount": [
+                                        "75% of monthly basic earnings up to a maximum of $15,000"
+                                    ],
+                                    "Maximum benefit period": [
+                                        "Period ending on the last day of the month in which the employee reaches age 65"
+                                    ],
+                                    "Proof of good health": [
+                                        "Required for coverage in excess of $9,000, and any increase in that coverage of 25% or more or $500, whichever is greater"
+                                    ],
+                                    "Termination": [
+                                        "When the employee reaches age 65 less the elimination period or the date the employee retires, whichever is earlier"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Coveragesubtype": "",
+                            "Coveragetype": "Critical Illness",
+                            "keys": [
+                                {
+                                    "Amount": [
+                                        "As elected by the employee, units of $5,000 per child\nMaximum – $20,000"
+                                    ],
+                                    "Amount0": [
+                                        "Minimum – $20,000"
+                                    ],
+                                    "Proof of good health": [
+                                        "Required on the initial optional amount of coverage, unless enrolment is made within 31 days of the eligibility date, and any increase in that coverage requested by the employee"
+                                    ],
+                                    "Termination": [
+                                        "When the employee retires or reaches age 65, or when the spouse reaches age 65, whichever is earlier",
+                                        "Child Optional Critical Illness"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Coveragesubtype": "",
+                            "Coveragetype": "Extended Health Care",
+                            "keys": [
+                                {
+                                    "Benefit year": [
+                                        "January 1 to December 31"
+                                    ],
+                                    "Chronic care hospital": [
+                                        "100% of the difference between the cost of a ward and a semi-private room, for a maximum of 180 days per person per benefit year"
+                                    ],
+                                    "Convalescent hospital": [
+                                        "100% of the difference between the cost of a ward and a semi-private room, for a maximum of 180 days for all periods of treatment of an illness due to the same or related causes"
+                                    ],
+                                    "Deductible": [
+                                        "None",
+                                        "Reimbursement level"
+                                    ],
+                                    "In-province hospital": [
+                                        "100% of the difference between the cost of a ward and a private room"
+                                    ],
+                                    "Maximum benefit": [
+                                        "Unlimited"
+                                    ],
+                                    "Medical services and equipment": [
+                                        "100%"
+                                    ],
+                                    "Out-of-pocket maximum": [
+                                        "For employees residing in Québec, expenses incurred for drugs listed in the Régie de l'assurance-maladie du Québec (RAMQ) drug formulary and not reimbursed under this plan as a result of the application of the deductible or the reimbursement percentage are limited in each calendar year to the yearly maximum contribution set by the RAMQ plan. The out-of-pocket maximum applies separately to the employee and the employee's spouse. Any drug expenses incurred for children are part of the out-of-pocket maximum of the employee."
+                                    ],
+                                    "Out-of-province emergency expenses": [
+                                        "100%",
+                                        [
+                                            "Emergency Travel Assistance included"
+                                        ]
+                                    ],
+                                    "Out-of-province referred expenses": [
+                                        "80%"
+                                    ],
+                                    "Paramedical services": [
+                                        "100% up to a maximum of $1,000 per person per benefit year for qualified psychologists, social workers, clinical counsellors, psychotherapists or psychoeducators",
+                                        [
+                                            "100% up to a combined maximum of $2,500 per person per benefit year for all the qualified paramedical practitioners listed below:",
+                                            "massage therapists or kinesitherapists",
+                                            "speech therapists",
+                                            "physiotherapists or rehabilitation therapists",
+                                            "naturopaths",
+                                            "acupuncturists",
+                                            "audiologists",
+                                            "dieticians",
+                                            "occupational therapists",
+                                            "athletic therapists",
+                                            "osteopaths or osteopathic practitioners, including a maximum of one x-ray examination each benefit year",
+                                            "chiropractors, including a maximum of one x-ray examination each benefit year",
+                                            "podiatrists or chiropodists, including a maximum of one x-ray examination each benefit year"
+                                        ]
+                                    ],
+                                    "Prescription drugs": [
+                                        "100% for generic drugs and brand name drugs that do not have a generic equivalent and 90% for other brand name drugs and all other eligible expenses",
+                                        [
+                                            "For employees residing in Québec, the reimbursement percentage is increased to 100% for drugs listed in the Régie de l'assurance-maladie du Québec (RAMQ) drug formulary once the out-of-pocket maximum has been reached. However, if the drug submitted for reimbursement has a lower priced equivalent drug, only the cost of the lowest priced equivalent drug will be considered at 100%, unless Sun Life specifically approved the cost of the higher priced drug."
+                                        ]
+                                    ],
+                                    "Québec drug insurance plan": [
+                                        "Any conditions under this plan that do not meet the requirements under the Québec drug insurance plan are automatically adjusted to meet those requirements"
+                                    ],
+                                    "Substance abuse rehabilitation centre": [
+                                        "100% of the difference between the cost of a ward and a private room, up to a maximum of $80 per day and a lifetime maximum of $2,500 per person"
+                                    ],
+                                    "Vision care": [
+                                        "100% up to a maximum of $500 per person in any 24 month period"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Coveragesubtype": "",
+                            "Coveragetype": "Dental Care",
+                            "keys": [
+                                {
+                                    "Basic dental procedures": [
+                                        "100%"
+                                    ],
+                                    "Benefit year": [
+                                        "January 1 to December 31"
+                                    ],
+                                    "Benefit year maximum": [
+                                        "$2,000 per person"
+                                    ],
+                                    "Benefit year maximum0": [
+                                        "Orthodontic procedures are not included in the benefit year maximum. A separate lifetime maximum applies."
+                                    ],
+                                    "Deductible": [
+                                        "None",
+                                        "Reimbursement level"
+                                    ],
+                                    "Fee guide": [
+                                        "The current fee guide for general practitioners approved by the Dental Association in the province where the treatment is received"
+                                    ],
+                                    "Lifetime maximum": [
+                                        "Orthodontic procedures – $2,500 per person"
+                                    ],
+                                    "Major dental procedures": [
+                                        "80%"
+                                    ],
+                                    "Orthodontic procedures": [
+                                        "50% "
+                                    ],
+                                    "Preventive dental procedures": [
+                                        "100%"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "Eligibility requirements": [
+                        "An employee must:"
+                    ],
+                    "Termination": [
+                        "Termination of coverage may vary from benefit to benefit as indicated in this section. In addition, coverage may end on an earlier date, as specified in General Conditions of the Coverage."
+                    ],
+                    "Waiting period": [
+                        "None"
+                    ]
+                }]
+            ,
+            "CONTRACT ANNIVERSARIES": "December 1, 2023 and the same day of each subsequent year",
+            "CONTRACT EFFECTIVE DATE": "December 1, 2018",
+            "CONTRACT HOLDER": "Osisko Gold Royalties Ltd.",
+            "CONTRACT NUMBER": "102788",
+            "PREMIUM DUE DATES": "The effective date and the first day of each following month",
+            "RENEWAL RATE EFFECTIVE DATES": "",
+            "renewal rate effective Dates": "December 1, 2023 and the same day of each subsequent year"
+        
+    }})
+  const [selected, setSelected] = React.useState();
+  const handleChange = event => {
+    console.log(event.target.value);
+
+  };
+
+  //Code for fetching the entire keys from json 1 and json 2
+  const [totalKeyArray, objectVal] = React.useState([0]);
+  Object.keys(json1).forEach(function(key,value) {
+        if(typeof json1[key] === "object"){
+          if(json1[key] && json2[key]){
+            var subJson1ValueCount=Object.values(json1[key]).length;
+            var subJson2ValueCount=Object.values(json2[key]).length;
+            if(subJson1ValueCount>=subJson2ValueCount){
+              totalKeyArray.push({
+                [key]:json1[key]
+              })
+              return;
+            }
+          }           
+          else{
+          totalKeyArray.push({
+            [key]:json1[key]
+          })
+        }
+      }
+          else{
+            totalKeyArray.push(key)
+          }
+});
+      Object.keys(json2).forEach(function(key,value) {
+        if(typeof json2[key] === "object"){
+          if(json1[key] && json2[key]){
+            var subJson1ValueCount=Object.values(json1[key]).length;
+            var subJson2ValueCount=Object.values(json2[key]).length;
+            if(subJson2ValueCount>subJson1ValueCount){
+              totalKeyArray.push({
+                [key]:json2[key]
+              })
+              return;
+            }
+           }           
+           else{
+          totalKeyArray.push({
+            [key]:json2[key]
+          })
+        }
+      }
+          else{
+            totalKeyArray.push(key)
+          }
+    });
+
+    const uniqueKeys = Array.from(new Set(totalKeyArray));
+    const index = uniqueKeys.indexOf(0);
+    if (index > -1) { // only splice array when item is found
+      uniqueKeys.splice(index, 1); // 2nd parameter means remove one item only
+    }
+          //Code for  table structure of JSON1 And JSON2
+          const items = [];
+          items.push(
+            <tr>
+              <td><span class="outerKeys">Contract Details</span></td>
+            </tr>
+          )
+          Object.keys(uniqueKeys[0]['Contract Details']).forEach(function(key,value) {
+           if(key=="Benefit Details"){
+            items.push(
+              <tr>
+              <td ><span class="outerKeys1">{key}</span></td>
+              </tr>
+             )
+            Object.values(uniqueKeys[0]['Contract Details']['Benefit Details']).forEach(function(key1,value1) {
+              Object.keys(key1).forEach(function(subKey,SubValue) {
+                if(subKey=="Classes"|| subKey=="Coverage"||subKey=="Eligibility requirements"|| subKey=="Termination" || subKey=="Coverages"){
+                  items.push(
+                    <tr>
+                    <td ><span class="subKeys">{subKey}</span></td>
+                    </tr>
+                   )
+                   var subCategory=uniqueKeys[0]['Contract Details']['Benefit Details'][0][subKey].length;
+                   if(subCategory>=1 && subKey!="Coverages"){
+                    for (var j=0; j<subCategory ;j++)
+                      items.push(
+                       <tr>
+                        <td></td>
+                        <td > <span  class="inputText">{(typeof json1['Contract Details'] !== "undefined" &&  json1['Contract Details']['Benefit Details'][0][subKey][j] !== undefined)? json1['Contract Details']['Benefit Details'][0][subKey][j] : 'null'}</span></td>
+                        <td> <span  class="inputText"> {typeof json2['Contract Details'] !== "undefined" ? json2['Contract Details']['Benefit Details'][0][subKey][j]  : 'null'}</span></td>
+                       </tr>
+
+                      )
+                    }
+                      else{
+                        Object.values(uniqueKeys[0]['Contract Details']['Benefit Details'][0][subKey]).forEach(function(subCategorykey,subCategoryValue) {
+                         if(typeof subCategorykey==="object"){
+                          Object.keys(uniqueKeys[0]['Contract Details']['Benefit Details'][0][subKey][subCategoryValue]).forEach(function(subinnerCategorykey,subinnerCategoryValue) {
+                            debugger;
+                            if(subinnerCategorykey!="keys"){
+                            items.push(
+                              <tr>
+                               <td><span class="subInnerKeys">{subinnerCategorykey}</span></td>
+                               <td > <span  class="inputText">{(typeof json1['Contract Details'] !== "undefined" &&  json1['Contract Details']['Benefit Details'][0][subKey][subCategoryValue][subinnerCategorykey] !== undefined)? json1['Contract Details']['Benefit Details'][0]['Coverages'][subCategoryValue][subinnerCategorykey] : 'null'}</span></td>
+                               <td > <span  class="inputText">{(typeof json2['Contract Details'] !== "undefined" &&  json2['Contract Details']['Benefit Details'][0][subKey][subCategoryValue][subinnerCategorykey] !== undefined)? json2['Contract Details']['Benefit Details'][0]['Coverages'][subCategoryValue][subinnerCategorykey] : 'null'}</span></td>
+                              </tr>
+     
+                             )
+                            }
+                            else{
+                              items.push(
+                                <tr>
+                                 <td><span class="subInnerKeys">{subinnerCategorykey}</span></td>
+                                 <td > </td>
+                                 <td> </td>
+                                </tr>
+       
+                               )
+                              Object.keys(uniqueKeys[0]['Contract Details']['Benefit Details'][0][subKey][subCategoryValue]['keys'][0]).forEach(function(innerkey,onnerValue) {
+                              items.push(
+                                <tr>
+                                 <td><span class="innerkey">{innerkey}</span></td>
+                                 <td ><span>{json1['Contract Details']['Benefit Details'][0][subKey][subCategoryValue].keys[0][innerkey]}</span></td>
+                                 <td ><span>{json2['Contract Details']['Benefit Details'][0][subKey][subCategoryValue].keys[0][innerkey]}</span></td>
+                                </tr>
+                               )
+                              });
+
+                            }
+
+                          })
+                         
+                         }
+                        })
+
+                      }
+                }
+              })
+            })
+           }
+           else{
+            items.push(
+              <tr>
+              <td>
+              <span class="outerKeys">{key}</span>
+              </td>
+              <td> <span  class="inputText">{json1['Contract Details'] ? json1['Contract Details'][key]: 'null'}</span> </td>
+              <td> <span class="inputText">{json2['Contract Details'] ? json2['Contract Details'][key] : 'null'}</span> </td>
+            </tr>
+            )
+           }
+          
+          })
+          
+
+  return (
+    <div class="center">
+    
+      <table class="centerTable">
+        <tbody>
+        {items}
+        </tbody>
+      </table>
+    </div>
+
+  )
+}
+
+export default App;
