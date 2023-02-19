@@ -1,0 +1,142 @@
+Using normal 
+
+Sure! Here's an example of all the code in a single component:
+
+First, install the qrcode npm package to generate QR codes.
+
+npm install qrcode
+In the app.component.ts file, add the following code to import the required packages:
+
+import { Component } from '@angular/core';
+import * as QRCode from 'qrcode';
+Define a property person to hold the person's information in the AppComponent class:
+typescript
+Copy code
+export class AppComponent {
+  person = {
+    name: 'John Doe',
+    email: 'johndoe@example.com',
+    phone: '1234567890',
+    address: '123 Main St'
+  };
+  qrCodeUrl: string;
+}
+In the ngOnInit() method, generate a QR code using the qrcode package and assign it to the qrCodeUrl property:
+
+ngOnInit() {
+  const qrCodeData = `http://www.example.com/${this.person.email}`;
+  QRCode.toDataURL(qrCodeData)
+    .then(url => {
+      this.qrCodeUrl = url;
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+In the app.component.html file, use Bootstrap to style the form and display the person's information and the QR code:
+
+<div class="card">
+  <img class="card-img-top" [src]="qrCodeUrl" alt="QR Code">
+  <div class="card-body">
+    <h5 class="card-title">{{ person.name }}</h5>
+    <p class="card-text">
+      <strong>Email:</strong> {{ person.email }}<br>
+      <strong>Phone:</strong> {{ person.phone }}<br>
+      <strong>Address:</strong> {{ person.address }}
+    </p>
+  </div>
+</div>
+This will display a modern-looking document with a QR code and the person's basic information. You can customize the styles further using CSS.
+
+
+
+
+using fuse angular
+
+Sure, here is an example code in Angular that uses Fuse Angular to display a document that shows a QR code and basic information about a person:
+
+First, install the ngx-qrcode2 and fuse-angular packages using npm:
+
+Copy code
+npm install ngx-qrcode2 fuse-angular
+Then, in your component, import the necessary modules and define the QR code data and person information:
+
+typescript
+Copy code
+import { Component } from '@angular/core';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
+
+@Component({
+  selector: 'app-person-details',
+  templateUrl: './person-details.component.html',
+  styleUrls: ['./person-details.component.css']
+})
+export class PersonDetailsComponent {
+
+  qrCodeData = 'https://www.google.com'; // change to your desired link
+  personInfo = {
+    name: 'John Doe',
+    age: 30,
+    email: 'john.doe@example.com',
+    phone: '123-456-7890',
+    address: '123 Main St, Anytown USA'
+  };
+
+  constructor(private navigationService: FuseNavigationService) {
+    // set the page title
+    this.navigationService.setTitle('Person Details');
+  }
+
+}
+In the component's HTML template, use Fuse Angular's fuse-card component to display the person information and ngx-qrcode component to display the QR code:
+
+html
+Copy code
+<div class="container">
+  <fuse-card class="card">
+    <div class="card-content">
+      <div class="qr-code">
+        <ngx-qrcode [qrc-value]="qrCodeData" [qrc-element-type]="'img'"></ngx-qrcode>
+      </div>
+      <div class="person-info">
+        <h2>{{ personInfo.name }}</h2>
+        <div class="info-item">
+          <span class="info-label">Age:</span>
+          <span class="info-value">{{ personInfo.age }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Email:</span>
+          <span class="info-value">{{ personInfo.email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Phone:</span>
+          <span class="info-value">{{ personInfo.phone }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Address:</span>
+          <span class="info-value">{{ personInfo.address }}</span>
+        </div>
+      </div>
+    </div>
+  </fuse-card>
+</div>
+Finally, add the component to your app's routing module so it can be navigated to:
+
+typescript
+Copy code
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { PersonDetailsComponent } from './person-details/person-details.component';
+
+const routes: Routes = [
+  { path: 'person-details', component: PersonDetailsComponent },
+  { path: '', redirectTo: '/person-details', pathMatch: 'full' },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+This should display a card with a QR code that can be scanned to go to your desired link and basic information about a person in a nice layout.
