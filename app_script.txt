@@ -1,0 +1,43 @@
+// Replace YOUR_API_URL with the URL of your API
+const API_URL = "YOUR_API_URL";
+// Replace YOUR_NOTIFICATION_TITLE and YOUR_NOTIFICATION_MESSAGE with the title and message of your notification
+const NOTIFICATION_TITLE = "YOUR_NOTIFICATION_TITLE";
+const NOTIFICATION_MESSAGE = "YOUR_NOTIFICATION_MESSAGE";
+
+// This function is triggered every time a new row is added to the sheet
+function onNewRowAdded(e) {
+  // Get the range of the new row
+  const range = e.range;
+  // Get the values of the new row as an array
+  const values = range.getValues()[0];
+  // Send the values to the API
+  sendToAPI(values);
+  // Send a notification to the user
+  sendNotification();
+}
+
+// This function sends the values to the API
+function sendToAPI(values) {
+  // Create an object with the values
+  const data = {
+    // Replace COLUMN_1, COLUMN_2, COLUMN_3 with the names of your columns
+    column1: values[0],
+    column2: values[1],
+    column3: values[2],
+    // Add more columns if necessary
+  };
+  // Send a POST request to the API with the data
+  UrlFetchApp.fetch(API_URL, {
+    method: "POST",
+    contentType: "application/json",
+    payload: JSON.stringify(data),
+  });
+}
+
+// This function sends a notification to the user
+function sendNotification() {
+  // Get the active user's email address
+  const email = Session.getActiveUser().getEmail();
+  // Send an email to the user with the notification
+  GmailApp.sendEmail(email, NOTIFICATION_TITLE, NOTIFICATION_MESSAGE);
+}
