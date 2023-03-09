@@ -1,0 +1,79 @@
+Dear Chandan,
+
+I have brainstormed some ideas for a potential post and was considering writing about the latest tools in the field of AI and their respective use cases. While these use cases may not entirely align with the needs of our 
+company, I believe exploring these tools would be beneficial for everyone since many are not yet familiar with them. We all know that AI is a buzzword in the current landscape and for good reasons, 
+it is transforming the way we live, work, and interact with technology. I intend to delve into some
+ of the new developments in AI and the problems they solve, some of which may even be applicable to our own use cases.
+
+Although I understand that Sachin's original intention was for me to write posts that socialize/promote our team/work within SunLife, I too was considering writing about our work with Binah, Staple, FORCS ,
+ even how we used NLP in to extract data in CSR automation, as well as our experience with Employee Verse , VR and the different startups that we collaborate with.
+ However, I am not entirely sure about what I can and cannot write due to confidentiality issues and also topics like these would require a lot of input from your side too.
+ I also think that writing about our participation in hackathons and events like IIT Indore would be interesting. I would appreciate any guidance or suggestions you may have regarding the direction 
+I should take with my writing. I have additional ideas that I would like to discuss on Monday.
+
+As for the first post, I would like to give you a brief about the tools that I have come across. I will go into detail about a few in the first post, which cater to similar use cases, such as 
+TensorFlow, scikit, Keras Learn for training models. but i'll mention in brief all that I had gone through:
+
+
+1.Tools for model training
+A. Hugging Face: an open-source library of pre-trained natural language processing models for developing chatbots, language translation, and sentiment analysis.
+ By leveraging Hugging Face, we can improve the accuracy and efficiency of our own AI-powered applications.
+Hugging Face Transformers, which is an open-source library for natural language processing that provides tools for language translation, 
+sentiment analysis, text classification, and chatbot development. It includes a wide range of pre-trained models and APIs, as well as a framework for developing custom models.
+
+B. TensorFlow is another open-source machine learning framework developed by Google. It can be utilized to build and train deep neural networks for various applications, 
+such as image and speech recognition, natural language processing, and recommendation systems. By using TensorFlow, we can create powerful AI models that can enhance our 
+operations and improve customer experience. TensorFlow.js is a JavaScript library that enables the building and deployment of machine learning models in the browser and on Node.js.
+
+C. Scikit-learn: Scikit-learn is a free machine learning library for Python. It provides tools for data preprocessing, feature selection, model selection, and evaluation, as well
+ as a wide range of pre-built algorithms for classification, regression, clustering, and dimensionality reduction.
+
+D. Apache Mahout: Apache Mahout is an open-source machine learning library that provides tools for clustering, classification, and collaborative filtering. 
+It includes a wide range of pre-built algorithms and frameworks, and it can be used for large-scale data processing.
+
+2. ImageAI - ImageAI: ImageAI is a Python library for building and deploying computer vision applications. 
+It includes pre-built models for object detection, image recognition, and facial analysis, and it can be used with a variety of programming languages.
+
+3. OpenAI: OpenAI is an AI research laboratory that develops cutting-edge models and tools for natural language processing,
+ robotics, and other AI applications. It provides access to pre-built models and APIs, as well as an open-source 
+platform for developing custom models. By using OpenAI, we can leverage the latest advances in AI research and 
+develop innovative solutions that can differentiate us from our competitors.
+Some of the tools and models are
+A. GPT (Generative Pre-trained Transformer) - a series of transformer-based language models that can generate human-like text
+B. DALL-E - a neural network that can generate images from textual descriptions
+C. CLIP (Contrastive Language-Image Pre-Training) - a neural network that can understand the 
+relationship between images and language
+D. Codex - a powerful AI system that can code software based on natural language instructions
+E. GPT-3 (Generative Pre-trained Transformer 3) - a massive language model that can perform a wide 
+range of natural language processing tasks, including language translation, question answering, and text completion.
+
+4. Tools regarding claim detection and fraud analysis
+A. H2O.ai: H2O.ai is an open-source platform for building and deploying machine learning models.
+ It provides tools for data preprocessing, model selection, and model interpretation, and can be 
+used for a variety of applications, such as fraud detection and risk management
+B. IBM's Watson Financial Crimes Management. This software uses AI and machine learning to analyze data from multiple 
+sources, including transactional data, social media, and other online sources, to identify patterns and anomalies 
+that may indicate fraudulent activity. It also provides case management tools and workflows to help organizations
+ investigate and respond to fraud.
+
+5. BERT: BERT (Bidirectional Encoder Representations from Transformers) is a pre-trained deep learning model developed 
+by Google for natural language processing tasks. It can be fine-tuned for specific applications, 
+such as text classification and question answering.
+
+In addition to the tools mentioned above, there are many other new developments in the world of AI that are worth exploring. For example, there are now tools that can generate synthetic data for training AI models, 
+such as the Generative Adversarial Networks (GANs) and Variational Autoencoders (VAEs). These tools can be particularly useful when there is a shortage of real-world data or when the data is sensitive and cannot be shared.
+Another exciting development in the field of AI is the emergence of explainable AI, which is focused on developing AI models that can provide insights into how they arrived at their decisions.
+ This can help increase transparency and accountability in AI-powered systems, and make it easier for humans to understand and trust them.
+
+There are also certain products like whisper and chatgpt that I found equally fascinating and useful and could make for a good post idea. I'll share some of them below
+1. Runway - With 30+ AI Tools, real-time video editing, collaboration, and more, Runway is your next-generation content creation suite. Right inside your browser.
+2. Synthesia - Create videos from plain text in minutes
+3. Mixo.ai - With just a brief description of your idea, Mixo will generate your entire website content in seconds. Start collecting subscribers with stunning landing pages that require no code or design
+4. ElevenLabs - The most realistic and versatile AI speech software, ever. Eleven brings the most compelling, rich and lifelike voices to creators and publishers seeking the ultimate tools for storytelling.
+5. Galileo.ai - Galileo AI creates delightful, editable UI designs from a simple text description. 
+6. Waymark - generate commercials within seconds just from text.
+7. D-ID - chat.D-ID is a  web app that uses real-time face animation and advanced text-to-speech to create an immersive and human-like conversational AI experience.
+8. Looka - Make a logo in minutes.
+
+
+
