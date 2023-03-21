@@ -1,0 +1,58 @@
+ <>
+    
+    <div className="App">
+    <nav style={{ 
+      display: "flex", 
+      alignItems: "center", 
+      justifyContent: "space-between", 
+      backgroundColor: "#fff", 
+      padding: "10px 20px",
+      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 999
+    }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <img src={logo} alt="Chatbot logo" style={{ height: "50px", marginRight: "10px" }} />
+        <h1 style={{ margin: 0 }}>Chatbot</h1>
+      </div>
+      <div>
+        <button style={{ marginRight: "10px" }}>Home</button>
+        <button>About</button>
+      </div>
+    </nav>
+      <header style={{ display: 'full', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#333', color: '#fff', padding: '1rem' }}>
+        <h1>SunLife</h1>
+        <button style={{ backgroundColor: 'transparent', color: '#fff', fontSize: '1.2rem', border: 'none', cursor: 'pointer' }}>Logout</button>
+      </header>
+
+      <div style={{ position:"relative", height: "800px", width: "700px" }}>
+        <MainContainer>
+          <ChatContainer>
+            <MessageList 
+              scrollBehavior="smooth" 
+              typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}
+            >
+              {messages.map((message, i) => {
+                console.log(message)
+                return <Message key={i} model={message} />
+              })}
+            </MessageList>
+
+            <MessageInput 
+              placeholder="Type message here" 
+              onSend={handleSend} 
+              disabled={expectedResponse !== null}
+            />
+          </ChatContainer>
+        </MainContainer>
+      </div>
+
+      <footer style={{ backgroundColor: '#eee', padding: '1rem', textAlign: 'center' }}>
+        <p>&copy; {new Date().getFullYear()} ChatGPT. All rights reserved.</p>
+      </footer>
+    </div>
+    
+    </>
