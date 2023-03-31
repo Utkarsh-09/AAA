@@ -1,0 +1,393 @@
+//Trying to create the best possible prompt as per the use case
+//Prompt: I want you to become my Prompt Creator. Your goal is to help me craft the best possible prompt for my needs. 
+The prompt will be used by you, ChatGPT. You will follow the following process: 
+1. Your first response will be to ask me what the prompt should be about. I will provide my answer, 
+but we will need to improve it through continual iterations by going through the next steps. 
+2. Based on my input, you will generate 3 sections. 
+a) Revised prompt (provide your rewritten prompt. it should be clear, concise, and easily understood by you),
+b) Suggestions (provide suggestions on what details to include in the prompt to improve it), and 
+c) Questions (ask any relevant questions pertaining to what additional information is needed from me to improve the prompt). 
+3. We will continue this iterative process with me providing additional information to you and you updating the prompt in the Revised prompt 
+section until it's complete.
+
+//OpenAI: Great! I'm happy to help you with this. What would you like the prompt to be about?
+
+//Prompt: Please provide comments for the sql code that I will send you, which summarizes each function and class in detail, 
+and also includes all other relevant details in the form of comments within the code.
+
+//OpenAI: Revised prompt:
+Write detailed comments for SQL code that summarizes each function and class and includes relevant details within the code.
+Suggestions:
+What specific SQL code are you referring to? Is it a script, stored procedure, or a group of queries?
+What are the goals of the code? Understanding its intended purpose will help in crafting the most relevant and useful comments.
+Are there any known issues with the code that should be addressed in the comments?
+Would you like guidance on what type of information to include in the comments, such as input/output parameters, data types, and usage examples?
+Consider providing examples of the code and any output it generates to help me understand it better.
+Questions:
+Can you provide more information about the SQL code, such as its source, version, and the database system it's written for?
+What is the context of the SQL code? Is it being used in a specific project or application, and if so, what is the purpose of that project or application?
+Are there any particular audiences for the comments, such as developers, testers, or end-users, that should be taken into consideration?
+Do you have any specific goals or requirements for the comments, such as complying with a particular documentation standard or providing a certain level of detail?
+
+//Now using the revised prompt in a new chat window since I had no further questions for a new prompt that I got in a new chat window
+
+//Code Summary from OpenAI: when initial code is uploaded to OpenAI.
+The stored procedure stp_CityHealthResearchRequestsReport takes in four input parameters @FromDate, @ToDate, @StatusId, and @BranchId 
+and one output parameter @Count.
+
+The procedure first declares a table variable @TempTable with columns ProjectId, Recieved, Concluded, and Comment. 
+The IF block checks if both @StatusId and @BranchId are not equal to 0, and if so, inserts data into
+ @TempTable using a SELECT DISTINCT statement that retrieves the ProjectId, Recieved, Concluded, and Comment columns from the Project, 
+WorkflowHistory, and ProjectBranch tables based on certain conditions.
+
+The procedure then selects data from the Project, @TempTable, ProjectBranch, Branch, and Status
+ tables using a JOIN statement and certain conditions. The selected columns include ProjectId, Title, Facilities, Recieved, Concluded,
+ BranchName, StatusText, Comment, and Turnaround which is calculated as the difference between Concluded and Recieved.
+
+The SET statement assigns the value of @@ROWCOUNT to the @Count output parameter, which represents the number of rows affected by the last statement.
+
+There are two other IF blocks that check for different combinations of @StatusId and @BranchId and perform similar operations.
+
+//Prompt(That I got from openAI itself): 
+Write detailed comments for SQL code that summarizes each function and class and includes relevant details within the code.
+
+//OpenAI:
+CREATE PROCEDURE [dbo].[stp_CityHealthResearchRequestsReport]
+-- This stored procedure generates a report of research requests for a given time period and branch, 
+-- with details such as received and concluded dates, facilities associated with the project, status, and comments.
+-- It also returns the count of records in the report.
+@FromDate DATETIME, -- input parameter representing the starting date of the time period for the report
+@ToDate DATETIME, -- input parameter representing the ending date of the time period for the report
+@StatusId int, -- input parameter representing the status of the research requests to be included in the report
+@BranchId int, -- input parameter representing the branch of the research requests to be included in the report
+@Count INT OUTPUT -- output parameter representing the count of records in the report
+AS
+BEGIN
+DECLARE @TempTable TABLE
+(
+    ProjectId INT, -- column representing the project ID
+    Recieved DATETIME, -- column representing the date the research request was received
+    Concluded DATETIME, -- column representing the date the research request was concluded
+    Comment VARCHAR(8000) -- column representing any comments associated with the research request
+)
+
+IF @StatusId <> 0 AND @BranchId <> 0 -- checking if both status ID and branch ID are specified
+BEGIN
+
+    -- populating the temporary table with the required data
+    INSERT INTO @TempTable (ProjectId, Recieved, Concluded, Comment)
+    SELECT DISTINCT
+        p.ProjectId,
+        (SELECT TOP 1 wf.ActionedOn
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 1
+         ORDER BY wf.WorkflowHistoryId DESC) AS Recieved,
+        (SELECT TOP 1 wf.ActionedOn
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 4
+         OR wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 5
+         ORDER BY wf.WorkflowHistoryId DESC) AS Concluded,
+        (SELECT TOP 1 wf.Comment
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 4
+         OR wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 5
+         ORDER BY wf.WorkflowHistoryId DESC) AS Comment
+    FROM
+        Project p
+        JOIN WorkflowHistory w ON p.ProjectId = w.ProjectId
+        JOIN ProjectBranch pb ON pb.ProjectId = p.ProjectId
+    WHERE
+        p.ProjectId = w.ProjectId
+        AND p.StatusId = @StatusId
+        AND pb.BranchId = @BranchId
+        AND w.WorkflowStep = 1
+        AND (w.ActionedOn BETWEEN @FromDate AND @ToDate)
+
+    -- selecting the data to be included in the report and joining with relevant tables
+    SELECT DISTINCT
+        p.ProjectId,
+        p.Title,
+        STUFF (
+               (SELECT ', ' + f.Name
+                FROM dbo.Facility f
+                LEFT JOIN dbo.ProjectFacility pf ON f.FacilityId = pf.FacilityId
+                WHERE pf.ProjectId = p.ProjectId
+                FOR XML PATH (''))
+                , 1, 1, '') AS Facilities,
+        tt.Recieved,
+        tt.Concluded,
+        b.BranchName,
+        st.Description AS StatusText,
+        tt.Comment,
+        tt.Concluded - tt.Recieved AS Turnaround
+   FROM dbo.Project p
+    INNER JOIN @TempTable tt ON p.ProjectId = tt.ProjectId
+    
+    -- Joins the ProjectBranch table to the Project table based on ProjectId
+    LEFT JOIN dbo.ProjectBranch pb ON p.ProjectId = pb.ProjectId
+    
+    -- Joins the Branch table to the ProjectBranch table based on BranchId
+    -- This allows the stored procedure to filter project data based on a specific branch
+    LEFT JOIN dbo.Branch b ON pb.BranchId = b.BranchId
+    
+    -- Joins the Status table to the Project table based on StatusId
+    -- This allows the stored procedure to filter project data based on a specific status
+    LEFT JOIN dbo.Status st ON p.StatusId = st.StatusId
+    
+    -- Filters the project data based on the given StatusId and BranchId parameters
+    WHERE p.StatusId = @StatusId AND b.BranchId = @BranchId
+    
+    -- Sets the @Count output parameter to the number of rows returned by the query
+    SET @Count = @@ROWCOUNT
+END
+-- This stored procedure inserts data into a temporary table called @TempTable and then selects data from that table
+-- The stored procedure takes input parameters @StatusId, @BranchId, @FromDate, and @ToDate
+-- @StatusId is an integer that specifies the project status ID to filter on
+-- @BranchId is an integer that specifies the project branch ID to filter on (not used in this specific block of code)
+-- @FromDate is a date that specifies the start date to filter on
+-- @ToDate is a date that specifies the end date to filter on
+
+IF @StatusId <> 0 AND @BranchId = 0 -- If the StatusId is not 0 and BranchId is 0, continue with the stored procedure
+BEGIN
+
+    -- This section inserts data into the @TempTable
+    INSERT INTO @TempTable (ProjectId, Recieved, Concluded, Comment)
+    SELECT DISTINCT -- Select distinct values
+        p.ProjectId,
+        (SELECT TOP 1 wf.ActionedOn -- Select the top actionedOn value for WorkflowStep 1
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 1
+         ORDER BY wf.WorkflowHistoryId DESC) AS Recieved,
+        (SELECT TOP 1 wf.ActionedOn -- Select the top actionedOn value for WorkflowStep 4 or 5
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 4
+         OR wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 5
+         ORDER BY wf.WorkflowHistoryId DESC) AS Concluded,
+        (SELECT TOP 1 wf.Comment -- Select the top comment value for WorkflowStep 4 or 5
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 4
+         OR wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 5
+         ORDER BY wf.WorkflowHistoryId DESC) AS Comment
+    FROM
+        Project p -- Join the Project table
+        JOIN WorkflowHistory w ON p.ProjectId = w.ProjectId -- Join the WorkflowHistory table
+        JOIN ProjectBranch pb ON pb.ProjectId = p.ProjectId -- Join the ProjectBranch table
+    WHERE
+        p.ProjectId = w.ProjectId -- Match the project IDs
+        AND p.StatusId = @StatusId -- Filter on the StatusId
+        AND w.WorkflowStep = 1 -- Filter on the WorkflowStep
+        AND (w.ActionedOn BETWEEN @FromDate AND @ToDate) -- Filter on the date range
+
+    -- This section selects data from the Project table and other related tables, based on the values in the @TempTable
+    SELECT DISTINCT -- Select distinct values
+        p.ProjectId,
+        p.Title,
+        STUFF (
+               (SELECT ', ' + f.Name -- Concatenate facility names separated by a comma
+                FROM dbo.Facility f
+                LEFT JOIN dbo.ProjectFacility pf ON f.FacilityId = pf.FacilityId
+                WHERE pf.ProjectId = p.ProjectId
+                FOR XML PATH (''))
+                , 1, 1, '') AS Facilities,
+        tt.Recieved,
+        tt.Concluded,
+        b.BranchName,
+        st.Description AS StatusText,
+        tt.Comment,
+        tt.Concluded - tt.Recieved AS Turnaround
+    FROM
+        dbo.Project p -- Join the Project table
+        INNER JOIN @TempTable tt ON p.ProjectId = tt.ProjectId -- Join the @TempTable
+        -- Left join the ProjectBranch table using the ProjectId field
+    LEFT JOIN dbo.ProjectBranch pb ON p.ProjectId = pb.ProjectId
+    -- Left join the Branch table using the BranchId field from ProjectBranch
+    LEFT JOIN dbo.Branch b ON pb.BranchId = b.BranchId
+    -- Left join the Status table using the StatusId field from the Project table
+    LEFT JOIN dbo.Status st ON p.StatusId = st.StatusId
+-- Where clause to filter the results to only those with a specific StatusId
+WHERE 
+    p.StatusId = @StatusId
+-- Set the value of the @Count variable to the number of rows returned by the query
+SET @Count = @@ROWCOUNT
+END
+
+-- This SQL Server script retrieves information about projects that meet certain criteria
+-- The purpose is to display a result set containing project details such as title, facilities, received and concluded dates, branch, status, comment, and turnaround time
+-- The script starts with a conditional statement that checks if the @StatusId variable is not equal to 0 and the @BranchId variable is equal to 0
+
+IF @StatusId <> 0 AND @BranchId = 0
+BEGIN
+
+    -- A temporary table is created to store the project details
+    -- The table has four columns: ProjectId, Recieved, Concluded, and Comment
+    DECLARE @TempTable TABLE (
+        ProjectId INT,
+        Recieved DATETIME,
+        Concluded DATETIME,
+        Comment VARCHAR(MAX)
+    )
+
+    -- The script inserts data into the temporary table by selecting certain columns from multiple tables
+    -- The SELECT DISTINCT statement selects unique values from the columns
+    INSERT INTO @TempTable (ProjectId, Recieved, Concluded, Comment)
+    SELECT DISTINCT
+        p.ProjectId,
+        -- The subquery selects the most recent date on which the workflow step was actioned on for a project
+        (SELECT TOP 1 wf.ActionedOn
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 1
+         ORDER BY wf.WorkflowHistoryId DESC) AS Recieved,
+        -- The subquery selects the most recent date on which the workflow step was actioned on for a project and also selects the comment associated with the step
+        (SELECT TOP 1 wf.ActionedOn
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 4
+         OR wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 5
+         ORDER BY wf.WorkflowHistoryId DESC) AS Concluded,
+        (SELECT TOP 1 wf.Comment
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 4
+         OR wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 5
+         ORDER BY wf.WorkflowHistoryId DESC) AS Comment
+    FROM
+        Project p
+        JOIN WorkflowHistory w ON p.ProjectId = w.ProjectId
+        JOIN ProjectBranch pb ON pb.ProjectId = p.ProjectId
+    WHERE
+        p.ProjectId = w.ProjectId
+        AND p.StatusId = @StatusId
+        AND w.WorkflowStep = 1
+        AND (w.ActionedOn BETWEEN @FromDate AND @ToDate)
+
+    -- The script selects columns from multiple tables to create the result set
+    -- The STUFF function concatenates the facility names into a single string
+    SELECT DISTINCT
+        p.ProjectId,
+        p.Title,
+        STUFF (
+               (SELECT ', ' + f.Name
+                FROM dbo.Facility f
+                LEFT JOIN dbo.ProjectFacility pf ON f.FacilityId = pf.FacilityId
+                WHERE pf.ProjectId = p.ProjectId
+                FOR XML PATH (''))
+                , 1, 1, '') AS Facilities,
+        tt.Recieved,
+        tt.Concluded,
+        b.BranchName,
+        st.Description AS StatusText,
+        tt.Comment,
+        -- The script calculates the turnaround time by subtracting the received date from the concluded date
+        tt.Concluded - tt.Recieved AS Turnaround
+    FROM
+        dbo.Project p -- join the Project table
+        INNER JOIN @TempTable tt ON p.ProjectId = tt.ProjectId -- join the @TempTable table variable
+        LEFT JOIN dbo.ProjectBranch pb ON p.ProjectId = pb.ProjectId -- join the ProjectBranch table
+        LEFT JOIN dbo.Branch b ON pb.BranchId = b.BranchId -- join the Branch table
+        LEFT JOIN dbo.Status st ON p.StatusId = st.StatusId -- join the Status table
+    WHERE
+        p.StatusId = @StatusId -- filter by the specified StatusId
+        AND b.BranchId = @BranchId -- filter by the specified BranchId
+    SET @Count = @@ROWCOUNT -- set the output parameter to the number of rows returned by the query
+END
+-- This code block checks whether the input parameters @StatusId and @BranchId are both equal to zero
+-- and if so, it performs some queries to retrieve data and insert it into a temporary table @TempTable
+
+IF @StatusId = 0 AND @BranchId = 0
+BEGIN
+
+    -- This query selects distinct ProjectIds and some associated data (Recieved, Concluded, and Comment)
+    -- from the Project table, the WorkflowHistory table, and the ProjectBranch table, and inserts it into the temporary table
+    INSERT INTO @TempTable (ProjectId, Recieved, Concluded, Comment)
+    SELECT DISTINCT
+        p.ProjectId,
+        (SELECT TOP 1 wf.ActionedOn
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 1
+         ORDER BY wf.WorkflowHistoryId DESC) AS Recieved,
+        (SELECT TOP 1 wf.ActionedOn
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 4
+         OR wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 5
+         ORDER BY wf.WorkflowHistoryId DESC) AS Concluded,
+        (SELECT TOP 1 wf.Comment
+         FROM WorkflowHistory wf
+         WHERE wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 4
+         OR wf.ProjectId = p.ProjectId
+         AND wf.WorkflowStep = 5
+         ORDER BY wf.WorkflowHistoryId DESC) AS Comment
+    FROM
+        Project p
+        JOIN WorkflowHistory w ON p.ProjectId = w.ProjectId
+        JOIN ProjectBranch pb ON pb.ProjectId = p.ProjectId
+    WHERE
+        p.ProjectId = w.ProjectId
+        AND p.StatusId = 5
+        AND w.WorkflowStep = 1
+        AND (w.ActionedOn BETWEEN @FromDate AND @ToDate)
+        OR p.ProjectId = w.ProjectId
+        AND p.StatusId = 6
+        AND w.WorkflowStep = 1
+        AND (w.ActionedOn BETWEEN @FromDate AND @ToDate)
+        OR p.ProjectId = w.ProjectId
+        AND p.StatusId = 7
+        AND w.WorkflowStep = 1
+        AND (w.ActionedOn BETWEEN @FromDate AND @ToDate)
+
+    -- This query selects distinct ProjectIds and some associated data (Title, Facilities, Recieved, Concluded, BranchName, StatusText, Comment, and Turnaround)
+    -- from the Project table, the @TempTable temporary table, the ProjectBranch table, the Branch table, and the Status table
+    -- and returns it as the final result set
+    SELECT DISTINCT
+        p.ProjectId,
+        p.Title,
+        STUFF (
+               (SELECT ', ' + f.Name
+                FROM dbo.Facility f
+                LEFT JOIN dbo.ProjectFacility pf ON f.FacilityId = pf.FacilityId
+                WHERE pf.ProjectId = p.ProjectId
+                FOR XML PATH (''))
+                , 1, 1, '') AS Facilities,
+        tt.Recieved,
+        tt.Concluded,
+        b.BranchName,
+        st.Description AS StatusText,
+        tt.Comment,
+        tt.Concluded - tt.Recieved AS Turnaround
+   FROM
+    dbo.Project p
+    INNER JOIN @TempTable tt ON p.ProjectId = tt.ProjectId
+    LEFT JOIN dbo.ProjectBranch pb ON p.ProjectId = pb.ProjectId
+    LEFT JOIN dbo.Branch b ON pb.BranchId = b.BranchId
+    LEFT JOIN dbo.Status st ON p.StatusId = st.StatusId
+
+-- Limit the results to rows where the status ID is 5, 6, or 7.
+-- This is done using an OR operator.
+WHERE
+    p.StatusId = 5
+    OR p.StatusId = 6
+    OR p.StatusId = 7
+
+-- Set the variable @Count to the number of rows returned by the previous query.
+-- This is done using the @@ROWCOUNT function, which returns the number of rows affected by the last statement.
+SET @Count = @@ROWCOUNT
+END
+END
+
+

@@ -1,0 +1,527 @@
+//Trying to create the best possible prompt as per the use case
+//Prompt: I want you to become my Prompt Creator. Your goal is to help me craft the best possible prompt for my needs. 
+The prompt will be used by you, ChatGPT. You will follow the following process: 
+1. Your first response will be to ask me what the prompt should be about. I will provide my answer, 
+but we will need to improve it through continual iterations by going through the next steps. 
+2. Based on my input, you will generate 3 sections. 
+a) Revised prompt (provide your rewritten prompt. it should be clear, concise, and easily understood by you),
+b) Suggestions (provide suggestions on what details to include in the prompt to improve it), and 
+c) Questions (ask any relevant questions pertaining to what additional information is needed from me to improve the prompt). 
+3. We will continue this iterative process with me providing additional information to you and you updating the prompt in the Revised prompt 
+section until it's complete.
+
+//OpenAI: Great! I'm happy to help you with this. What would you like the prompt to be about?
+
+//Prompt: I want you add comments for a VBA code that I sent you such that it summarizes each function and class in detail
+ and also all the other relevant details is also added as comments only to that code.
+
+//OpenAI: Thanks for providing your prompt idea. Based on your input, here are three sections for your prompt:
+Revised Prompt:
+Write comments for a VBA code that summarizes each function and class in detail. Additionally, include all other relevant details as comments in the code.
+Suggestions:
+Start by thoroughly analyzing the VBA code and its purpose. This will help you understand the code's structure and what each function and class does.
+Write comments for each function and class that explain what it does, what inputs it expects, what it returns, and any limitations or constraints it may have.
+Use clear, concise language and avoid technical jargon whenever possible. Remember that your comments should be easy to understand for someone who is not familiar with the code.
+Comment on any other relevant details, such as how the code interacts with other systems or any external dependencies it may have.
+Questions:
+Can you provide some additional context about the VBA code? What is its purpose, and how will it be used?
+Are there any specific requirements or constraints that the comments should adhere to, such as a specific format or length?
+Is there anything else you would like me to keep in mind while writing the comments?
+
+//Prompt: Include all the suggestions in the prompt and I have no further questions
+
+//ChatGPT: Sure thing, here's your revised prompt with all the suggestions included:
+Revised Prompt:
+Write comments for a VBA code that summarizes each function and class in detail.
+Additionally, include all other relevant details as comments in the code.
+Suggestions:
+1.Start by thoroughly analyzing the VBA code and its purpose. This will help you understand the code's structure and what each function and class does.
+2.Write comments for each function and class that explain what it does, what inputs it expects, what it returns, and any limitations or constraints it may have. Use clear, concise language and avoid technical jargon whenever possible. Remember that your comments should be easy to understand for someone who is not familiar with the code.
+3.Include any relevant details about how the code interacts with other systems or any external dependencies it may have.
+4.Be sure to comment any important decision points in the code, and explain why a certain approach was taken over others.
+5.If any complex algorithms are present in the code, provide additional comments for those sections to make them more understandable.
+6.Use a consistent and clear format for your comments throughout the code to make it easier for someone to navigate and understand.
+
+//Now using the revised prompt in a new chat window since I had no further questions for a new prompt that I got in a new chat window.
+
+//Code Explanation:When initial code is uploaded to OpenAI
+This is a Visual Basic for Applications (VBA) code that is used to connect to an Oracle database and display data from the "emp" table.
+ It also allows the user to navigate through the records, add new records, and commit changes to the database.
+
+The code initializes a session object, a database object, and a Dynaset object to connect to the Oracle database. 
+The Form_Load() event is used to establish a connection to the database, create a Dynaset object with a SQL statement, and call the EmpRefresh() subroutine.
+
+The EmpRefresh() subroutine retrieves the data from the current record of the Dynaset object and displays it in the appropriate text boxes on the form. 
+If the record is at the beginning or end of the Dynaset, the text boxes are cleared.
+
+The cmdFirst_Click(), cmdLast_Click(), cmdPrevious_Click(), and cmdNext_Click() events are used to navigate through the records of the Dynaset object. 
+The AddNew_Click() event is used to clear the text boxes and allow the user to add a new record to the database. The Commit_Click() event is used to save the changes to the database.
+
+The DoValidationChecks() function is used to validate the data entered by the user before it is added to the database.
+ If the validation fails, an error message is displayed. The UpdateDynasetFields() function is used to update the fields of the Dynaset object with the data entered by the user.
+
+Overall, this code provides a basic user interface to interact with an Oracle database, display data, and modify it.
+ However, it is important to note that this code is specific to VBA and may need to be modified to work with other programming languages or environments.
+ Additionally, it is recommended to use best practices for database connectivity and data validation to ensure data integrity and security.
+
+//Prompt(Generated from OpenAI): Write comments for the above VBA code that summarizes each function and class in detail.
+Additionally, include all other relevant details as comments in the code.
+Suggestions:
+1.Start by thoroughly analyzing the VBA code and its purpose. This will help you understand the code's structure and what each function and class does.
+2.Write comments for each function and class that explain what it does, what inputs it expects, what it returns, and any limitations or constraints it may have. Use clear, concise language and avoid technical jargon whenever possible. Remember that your comments should be easy to understand for someone who is not familiar with the code.
+3.Include any relevant details about how the code interacts with other systems or any external dependencies it may have.
+4.Be sure to comment any important decision points in the code, and explain why a certain approach was taken over others.
+5.If any complex algorithms are present in the code, provide additional comments for those sections to make them more understandable.
+6.Use a consistent and clear format for your comments throughout the code to make it easier for someone to navigate and understand.
+
+//OpenAI: Global OraSession As Object ' declare global object for Oracle session
+Global OraDatabase As Object ' declare global object for Oracle database
+Global EmpDynaset As Object ' declare global object for employee data
+
+Private Sub Form_Load() ' Form_Load is an event that occurs when the form is loaded
+
+ ' Create a new instance of the Oracle session object
+ Set OraSession = CreateObject("OracleInProcServer.XOraSession")
+
+ ' Open a database connection using the Oracle session object
+ Set OraDatabase = OraSession.OpenDatabase("Exampledb", "scott/tiger", 0&)
+
+ ' Create a dynaset object to retrieve data from the "emp" table
+ Set EmpDynaset = OraDatabase.CreateDynaset("select * from emp", 0&)
+
+ ' Call EmpRefresh function to refresh the form with data from EmpDynaset
+ Call EmpRefresh
+
+End Sub
+
+Private Sub EmpRefresh() ' EmpRefresh is a function that refreshes the form with data from the EmpDynaset object
+
+ ' Check if EmpDynaset object is not empty
+ If EmpDynaset.BOF <> True And EmpDynaset.EOF <> True Then
+
+  ' Set the values of the form fields to the corresponding fields in the EmpDynaset object
+  txtEmpno = EmpDynaset.Fields("empno").Value
+
+  ' Check if the "ename" field is not null, and set txtEname to its value, otherwise set txtEname to an empty string
+  If Not IsNull(EmpDynaset.Fields("ename").Value) Then
+    txtEname = EmpDynaset.Fields("ename").Value
+  Else
+    txtEname = ""
+  End If
+
+  ' Check if the "job" field is not null, and set txtJob to its value, otherwise set txtJob to an empty string
+  If Not IsNull(EmpDynaset.Fields("job").Value) Then
+    txtJob = EmpDynaset.Fields("job").Value
+  Else
+    txtJob = ""
+  End If
+
+  ' Check if the "mgr" field is not null, and set txtMgr to its value, otherwise set txtMgr to an empty string
+  If Not IsNull(EmpDynaset.Fields("mgr").Value) Then
+   txtMgr = EmpDynaset.Fields("mgr").Value
+  Else
+    txtMgr = ""
+  End If
+
+  ' Check if the "hiredate" field is not null, and set txtHireDate to its value, otherwise set txtHireDate to an empty string
+  If Not IsNull(EmpDynaset.Fields("hiredate").Value) Then
+    txtHireDate = EmpDynaset.Fields("hiredate").Value
+  Else
+    txtHireDate = ""
+  End If
+
+  ' Check if the "sal" field is not null, and set txtSal to its value, otherwise set txtSal to an empty string
+  If Not IsNull(EmpDynaset.Fields("sal").Value) Then
+    txtSal = EmpDynaset.Fields("sal").Value
+  Else
+    txtSal = ""
+  End If
+
+  ' Check if the "comm" field is not null, and set txtComm to its value, otherwise set txtComm to an empty string
+  If Not IsNull(EmpDynaset.Fields("comm").Value) Then
+   txtComm = EmpDynaset.Fields("comm").Value
+  Else
+   txtComm = ""
+  End If
+
+  ' Set the value of txtDeptno to the "deptno" field in the EmpDynaset object
+  txtDeptno = EmpDynaset.Fields("deptno").Value
+ 
+
+ Else
+ 
+  txtEmpno = ""
+  txtEname = ""
+  txtJob = ""
+  txtMgr = ""
+  txtHireDate = ""
+  txtSal = ""
+  txtComm = ""
+  txtDeptno = ""
+ 
+ End If
+ 
+End Sub
+
+
+
+' This subroutine moves the cursor to the first record in the Dynaset object and calls EmpRefresh subroutine to display the employee record.
+Private Sub cmdFirst_Click() 
+    EmpDynaset.MoveFirst
+    Call EmpRefresh
+End Sub
+
+' This subroutine moves the cursor to the last record in the Dynaset object and calls EmpRefresh subroutine to display the employee record.
+Private Sub cmdLast_Click()
+    EmpDynaset.MoveLast
+    Call EmpRefresh
+End Sub
+
+' This subroutine moves the cursor to the previous record in the Dynaset object and calls EmpRefresh subroutine to display the employee record.
+' If the first record is reached, a message box will display a warning and the cursor will be moved to the first record.
+Private Sub cmdPrevious_Click()
+    If EmpDynaset.BOF <> True Then
+        EmpDynaset.DbMovePrevious
+        If EmpDynaset.BOF = True Then
+            MsgBox "You have reached the first employee record."
+            EmpDynaset.DbMoveFirst
+        End If
+    End If
+    Call EmpRefresh
+End Sub
+
+' This subroutine moves the cursor to the next record in the Dynaset object and calls EmpRefresh subroutine to display the employee record.
+' If the last record is reached, a message box will display a warning and the cursor will be moved to the last record.
+Private Sub cmdNext_Click()
+    If EmpDynaset.EOF <> True Then
+        EmpDynaset.DbMoveNext
+        If EmpDynaset.EOF = True Then
+            MsgBox "You have reached the last employee record."
+            EmpDynaset.DbMoveLast
+        End If
+    End If
+    Call EmpRefresh
+End Sub
+
+' This subroutine clears the text boxes for employee information and enables the Commit button while disabling the AddNew button.
+' It also sets the DoAdd variable to True to indicate that the user is adding a new employee record.
+Private Sub AddNew_Click()
+    txtEmpno = ""
+    txtEname = ""
+    txtJob = ""
+    txtMgr = ""
+    txtHireDate = ""
+    txtSal = ""
+    txtComm = ""
+    txtDeptno = ""
+
+    AddNew.Enabled = False
+    Commit.Enabled = True
+
+    DisableNavButtons
+
+    DoAdd = True
+End Sub
+
+Private Sub Commit_Click()
+
+    ' On Error statement is used to handle runtime errors.
+    ' If an error occurs, the code jumps to the err_commit label.
+    On Error GoTo err_commit
+    
+    ' Initialize ErrMsg variable to empty string.
+    ErrMsg = ""
+
+    ' Check if validation checks have passed
+    If DoValidationChecks Then
+        
+        ' If validation checks passed, add a new record to EmpDynaset.
+        EmpDynaset.AddNew
+
+        ' If fields are updated, update EmpDynaset fields.
+        If UpdateDynasetFields Then
+            EmpDynaset.Update
+            
+            ' Disable Commit button and enable AddNew button.
+            Commit.Enabled = False
+            AddNew.Enabled = True
+            
+            ' Exit from the Subroutine
+            Exit Sub
+        End If
+    End If
+    
+err_commit:
+    ' If ErrMsg is not empty, display ErrMsg in a message box.
+    ' Otherwise, display the error message from the runtime error.
+    If ErrMsg <> "" Then
+        MsgBox ErrMsg
+    Else
+        MsgBox Error$
+    End If
+    
+End Sub
+
+' This function is used to perform validation checks on form data before it is added or updated in the database.
+Function DoValidationChecks() As Boolean
+ 
+    ' Declare variables to be used in the function
+    Dim DupDyn As Object ' Represents a dynamic query that returns a set of records
+    Dim DupDynQry As String ' Stores the SQL query to check for duplicate employee numbers
+    
+    ' Initialize error handling
+    On Error GoTo err_ValidationCheck
+    
+    ' Initialize error message variable
+    ErrMsg = ""
+    
+    ' If the form is in Add mode, check that an employee number has been entered
+    If DoAdd Then
+        If txtEmpno = "" Then
+            ErrMsg = "You must enter a value for Employee Number"
+            Error 1 ' Jump to error handling
+        End If
+    End If
+    
+    ' Check that the hire date, if entered, is in the correct format
+    If txtHireDate <> "" And Not IsDate(txtHireDate) Then
+        ErrMsg = "Enter date as dd-mmm-yy."
+        Error 2 ' Jump to error handling
+    End If
+    
+    ' Check that a department number has been entered
+    If txtDeptno = "" Then
+        ErrMsg = "You must enter a value for Department Number"
+        Error 3 ' Jump to error handling
+    End If
+    
+    ' If the form is in Add mode, check for duplicate employee numbers in the database
+    If DoAdd Then
+        DupDynQry = "select count(*) from emp where empno = " & txtEmpno ' SQL query to check for duplicates
+        Set DupDyn = OraDatabase.CreateDynaset(DupDynQry, ORADYN_NOCACHE) ' Execute the query
+ 
+        ' If a duplicate employee number is found, display an error message
+        If DupDyn.Fields(0).Value <> 0 Then
+            ErrNum = DUPLICATE_KEY
+            ErrMsg = "Employee Number already exists."
+            Error ErrNum ' Jump to error handling
+        End If
+    End If
+    
+    ' If no validation errors were found, return True
+    DoValidationChecks = True
+    Exit Function
+    
+err_ValidationCheck:
+    ' If an error was encountered, display an appropriate error message
+    If ErrMsg <> "" Then
+        MsgBox ErrMsg
+    Else
+        MsgBox Error$
+    End If
+    
+    ' Set the return value of the function to False
+    DoValidationChecks = False
+    
+End Function
+Function UpdateDynasetFields() As Integer
+' This VBA function updates the fields of a record in a Dynaset object with new values 
+' retrieved from a form or user input. It returns an integer value to indicate 
+' whether the update was successful or not.
+
+' Initialize the error message string
+ErrMsg = ""
+ 
+' Use error handling to ensure any errors during the update are caught and dealt with
+On Error GoTo err_updatedynasetfields
+ 
+' Update the fields of the record in the Dynaset object with new values retrieved from a form
+EmpDynaset.Fields("empno").Value = txtEmpno ' Update employee number field
+EmpDynaset.Fields("ename").Value = txtEname ' Update employee name field
+EmpDynaset.Fields("job").Value = txtJob ' Update job field
+EmpDynaset.Fields("mgr").Value = txtManager ' Update manager field
+EmpDynaset.Fields("hiredate").Value = txtHireDate ' Update hire date field
+EmpDynaset.Fields("sal").Value = txtSal ' Update salary field
+EmpDynaset.Fields("comm").Value = txtComm ' Update commission field
+EmpDynaset.Fields("deptno").Value = txtDeptno ' Update department number field
+ 
+' Return True to indicate successful update
+UpdateDynasetFields = True
+ 
+' Exit function
+Exit Function
+ 
+' Error handling subroutine to catch and display any errors that occur during the update
+err_updatedynasetfields:
+    If ErrMsg <> "" Then
+        MsgBox ErrMsg ' Display custom error message, if one exists
+    Else
+        MsgBox Error$ ' Display built-in error message, if no custom message exists
+    End If
+    UpdateDynasetFields = False ' Return False to indicate unsuccessful update
+End Function
+Private Sub cmdUpdate_Click()
+  ' Disable cmdUpdate button and enable Commit button
+  cmdUpdate.Enabled = False
+  Commit.Enabled = True
+
+  ' Disable navigation buttons
+  DisableNavButtons
+  
+  ' Disable txtEmpno textbox and set DoUpdate flag to True
+  txtEmpno.Enabled = False
+  DoUpdate = True
+End Sub
+
+Private Sub DisableNavButtons()
+  ' Disable all navigation buttons while adding and updating
+  cmdFirst.Enabled = False
+  cmdPrevious.Enabled = False
+  cmdNext.Enabled = False
+  cmdLast.Enabled = False
+  cmdFind.Enabled = False
+  cmdUpdate.Enabled = False
+  AddNew.Enabled = False 
+End Sub
+
+Private Sub Commit_Click()
+  On Error GoTo err_commit 
+
+  ' Set ErrMsg to an empty string
+  ErrMsg = ""
+
+  ' Check if validation checks have passed
+  If DoValidationChecks Then 
+      
+      ' If adding a new record, call AddNew method of EmpDynaset
+      If DoAdd = True Then
+          EmpDynaset.AddNew
+      End If
+      
+      ' If updating an existing record, call Edit method of EmpDynaset
+      If DoUpdate = True Then
+         EmpDynaset.Edit
+      End If
+      
+      ' Update the dynaset fields and then update database if there is no error
+      If UpdateDynasetFields Then
+          EmpDynaset.Update
+      End If
+   
+      ' Set flags after committing changes to the database
+      SetAfterCommitFlags
+  
+  End If 
+
+  Exit Sub
+
+err_commit:
+  ' If ErrMsg is not empty, display ErrMsg in a message box. Otherwise, display the system error message.
+  If ErrMsg <> "" Then
+      MsgBox ErrMsg
+  Else
+      MsgBox Error$
+  End If
+
+End Sub
+' Subroutine: SetAfterCommitFlags
+' Description: This subroutine is called after a commit to the database is made. It updates the status of various buttons and flags to enable/disable them as needed.
+Sub SetAfterCommitFlags()
+    
+    ' Disable the Commit button since the database has already been updated.
+    Commit.Enabled = False
+    
+    ' Enable the AddNew and cmdUpdate buttons to allow the user to add or update records.
+    AddNew.Enabled = True
+    cmdUpdate.Enabled = True
+    
+    ' Enable all navigation buttons to allow the user to navigate through records.
+    cmdFirst.Enabled = True
+    cmdPrevious.Enabled = True
+    cmdNext.Enabled = True
+    cmdLast.Enabled = True
+    
+    ' Enable the Find button to allow the user to search for records.
+    cmdFind.Enabled = True
+    
+    ' Reset the DoUpdate and DoAdd flags to False to indicate that the user is not currently updating or adding a record.
+    DoUpdate = False
+    DoAdd = False
+    
+    ' Enable the employee number textbox to allow the user to enter a new employee number if needed.
+    txtEmpno.Enabled = True
+    
+End Sub
+
+
+' Subroutine: cmdDelete_Click
+' Description: This subroutine is called when the user clicks the Delete button. It deletes the currently selected record from the database.
+Private Sub cmdDelete_Click()
+
+    ' Display a message box to confirm that the user really wants to delete the record.
+    Response = MsgBox("Do you really want to Delete?", vbYesNo + vbExclamation)
+    
+    ' If the user clicked Yes, delete the record and attempt to move to the next record.
+    If Response = vbYes Then
+        EmpDynaset.Delete
+        
+        ' If the deleted record was the last one in the database, move to the previous record to avoid an error.
+        EmpDynaset.MoveNext
+        If EmpDynaset.EOF Then
+            EmpDynaset.MovePrevious
+        End If
+        
+        ' Refresh the employee data to display the updated database.
+        Call EmpRefresh
+    End If
+End Sub
+
+
+' Subroutine: cmdFind_Click
+' Description: This subroutine is called when the user clicks the Find button. It searches the database for an employee with a matching name.
+Private Sub cmdFind_Click()
+    
+    ' Declare variables for the search clause and single quote.
+    Dim FindClause As String
+    Dim SingleQuote As String
+    
+    ' Declare an error message variable.
+    ErrMsg = ""
+    
+    ' Set the single quote to a string to simplify the search clause later.
+    SingleQuote = "'"
+    
+    ' Handle any errors that may occur during the search.
+    On Error GoTo err_find
+    
+    ' Build the search clause using the employee name entered by the user.
+    FindClause = "ename = " & SingleQuote & txtEname & SingleQuote
+    
+    ' Search the database for the first record matching the search clause.
+    EmpDynaset.DbFindFirst FindClause
+    
+    ' If no matching record is found, display an error message and move to the first record.
+    If EmpDynaset.NoMatch Then
+        MsgBox "Could not find record matching Employee Name " & txtEname
+        EmpDynaset.DbMoveFirst
+    End If
+    
+    ' Refresh the employee data to display the found record.
+    Call EmpRefresh
+    
+    ' Exit the subroutine.
+    Exit Sub
+    
+' If an error occurs during the search, display an error message and return to the first record in the database.
+err_find:
+    MsgBox "Error finding record: " & Err.Description
+    EmpDynaset.DbMoveFirst
+End Sub
+
+
+
+
+
+
+
+
