@@ -1,10 +1,9 @@
 One Prompt , Infinite Possibilities : The capabalities of Autonomous AI applications.
-Imagine a world where these large language models trained on hugedata sets are working autonomously , improving at every iteration by themselves without our intervention till they achieve the solution.
-Exploring few of the technologies that can be leveraged and an experimental open source tool showcasing this capability already.
-Estencially what this model does that it allows natural language agents to learn from past mistakes and redirect
+Imagine a world where large language models, trained on massive datasets, are capable of working autonomously and continuously improving themselves without human intervention until they achieve the desired solution. In this context, exploring some technologies that could be utilized to facilitate this process, and an open source tool that showcases this capability experimentally.
+Estencially what this tool does that it allows natural language agents to learn from past mistakes and redirect
 future decisions in planning sequences which removes the human trainer in a human-in-the-middle
-approach by endowing the agent with dynamic memory and self-reflection capabilities to enhance its existing reasoning trace and task-specific action choice abilities.
-
+approach while avoiding repetition in action sequences and previous errors through dynamic memory and
+self-reflection capabilities
 Technologies that can be leveraged : 
                    Langchain - LangChain is a framework for developing applications powered by language models.  
                                Github - https://github.com/hwchase17/langchain-hub
@@ -12,8 +11,8 @@ Technologies that can be leveraged :
                    Llama Index - LlamaIndex (GPT Index) is a project that provides a central interface to connect your LLM’s with external data.  
                                  Github - https://github.com/jerryjliu/llama_index
 
-                   ElevenLabs - The most realistic and versatile AI speech software, ever. 
-                                Eleven brings the most compelling, rich and lifelike voices to creators and publishers seeking the ultimate tools for storytelling.
+                   ElevenLabs - One of the most realistic and versatile AI speech software.
+                                ElevenLabs brings the most compelling, rich and lifelike voices to creators and publishers seeking the ultimate tools for storytelling.
 
                    Pinecone - Long-term Memory for AI. The Pinecone vector database makes it easy to build high-performance vector search applications. 
                               Developer-friendly, fully managed, and easily scalable without infrastructure hassles.
@@ -24,9 +23,7 @@ Technologies that can be leveraged :
 
 An experiment tool based on Reflexion(an autonomous agent with dynamic memory and self-reflection)
 
-Reflexion : We proposed an approach that allows natural language agents to learn from past mistakes and redirect
-future decisions in planning sequences which removes the human trainer in a human-in-the-middle
-approach. Recent advancements in decision-making large language model (LLM) agents have
+Reflexion :  Recent advancements in decision-making large language model (LLM) agents have
 demonstrated impressive performance across various benchmarks. However, these
 state-of-the-art approaches typically necessitate internal model fine-tuning, external
 model fine-tuning, or policy optimization over a defined state space. Implementing
@@ -52,11 +49,7 @@ An experimental open-source attempt to make GPT-4 fully autonomous.
 Auto-GPT is an experimental open-source application showcasing the capabilities of the GPT-4 language model. 
 This program, driven by GPT-4, autonomously develops and manages businesses to increase net worth.
 As one of the first examples of GPT-4 running fully autonomously, Auto-GPT pushes the boundaries of what is possible with AI.
-we can see that now it is entering into a new territory where you can use gpt4 to connect with existing open source application and make gpt4 more powerful
-than what it is so ideally GPT 4 is a large language model that has been open source by open AI but most of the existing gpt4 applications have kept
-gpt4 Standalone but this application tries to combine gpt4 with existing forces of Open Source applications and it is trying to manage gpt4 do a lot of things that GPT 4 otherwise would not do
-alone isolated.  The main idea behind this system is that it creates new tasks on every iteration based on the result of previous tasks and a predefined objective to get to the goal while scouting the whole 
-internet and the Large language model that it has been trained on.
+We are currently witnessing a new frontier, where GPT-4 can be utilized to connect with existing open-source applications, thereby significantly enhancing its capabilities. While GPT-4 has been released as an open-source project by Open AI, most existing applications have used it in a standalone manner. However, this tool aims to integrate GPT-4 with other open-source applications to expand its scope beyond what it can achieve alone in isolation. The primary concept behind this system is to generate new tasks in each iteration based on the results of prior tasks, along with a pre-defined objective to reach the desired goal, while simultaneously traversing the internet and the vast language model it has been trained on.
 Below is the demo video showcasing its capabilities.
 
 The script works by running an infinite loop that does the following steps:
