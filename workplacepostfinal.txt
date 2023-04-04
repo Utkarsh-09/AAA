@@ -1,0 +1,82 @@
+One Prompt , Infinite Possibilities : The capabalities of Autonomous AI applications.
+Imagine a world where these large language models trained on hugedata sets are working autonomously , improving at every iteration by themselves without our intervention till they achieve the solution.
+Exploring few of the technologies that can be leveraged and an experimental open source tool showcasing this capability already.
+Estencially what this model does that it allows natural language agents to learn from past mistakes and redirect
+future decisions in planning sequences which removes the human trainer in a human-in-the-middle
+approach by endowing the agent with dynamic memory and self-reflection capabilities to enhance its existing reasoning trace and task-specific action choice abilities.
+
+Technologies that can be leveraged : 
+                   Langchain - LangChain is a framework for developing applications powered by language models.  
+                               Github - https://github.com/hwchase17/langchain-hub
+
+                   Llama Index - LlamaIndex (GPT Index) is a project that provides a central interface to connect your LLM’s with external data.  
+                                 Github - https://github.com/jerryjliu/llama_index
+
+                   ElevenLabs - The most realistic and versatile AI speech software, ever. 
+                                Eleven brings the most compelling, rich and lifelike voices to creators and publishers seeking the ultimate tools for storytelling.
+
+                   Pinecone - Long-term Memory for AI. The Pinecone vector database makes it easy to build high-performance vector search applications. 
+                              Developer-friendly, fully managed, and easily scalable without infrastructure hassles.
+
+                   Large Language Models - Large language models are computer programs that can analyze and create text. 
+                                          They are trained using massive amounts of text data, which helps them become better at tasks like generating text.
+                                           Example - GPT4 , LAMDA , Palm. 
+
+An experiment tool based on Reflexion(an autonomous agent with dynamic memory and self-reflection)
+
+Reflexion : We proposed an approach that allows natural language agents to learn from past mistakes and redirect
+future decisions in planning sequences which removes the human trainer in a human-in-the-middle
+approach. Recent advancements in decision-making large language model (LLM) agents have
+demonstrated impressive performance across various benchmarks. However, these
+state-of-the-art approaches typically necessitate internal model fine-tuning, external
+model fine-tuning, or policy optimization over a defined state space. Implementing
+these methods can prove challenging due to the scarcity of high-quality training
+data or the lack of well-defined state space. Moreover, these agents do not possess
+certain qualities inherent to human decision-making processes, specifically the
+ability to learn from mistakes. Self-reflection allows humans to efficiently solve
+novel problems through a process of trial and error. Building on recent research, we
+propose Reflexion, an approach that endows an agent with dynamic memory and
+self-reflection capabilities to enhance its existing reasoning trace and task-specific
+action choice abilities. To achieve full automation, we introduce a straightforward
+yet effective heuristic that enables the agent to pinpoint hallucination instances,
+avoid repetition in action sequences, and, in some environments, construct an internal memory map of the given environment. To assess our approach, we evaluate
+the agent’s ability to complete decision-making tasks in AlfWorld environments
+and knowledge-intensive, search-based question-and-answer tasks in HotPotQA
+environments. We observe success rates of 97% and 51%, respectively, and provide
+a discussion on the emergent property of self-reflection.
+
+
+Auto-GPT : An Autonomous GPT-4 Experiment with dynamic memory and self-reflection.
+Github: https://github.com/Torantulino/Auto-GPT
+An experimental open-source attempt to make GPT-4 fully autonomous.
+Auto-GPT is an experimental open-source application showcasing the capabilities of the GPT-4 language model. 
+This program, driven by GPT-4, autonomously develops and manages businesses to increase net worth.
+As one of the first examples of GPT-4 running fully autonomously, Auto-GPT pushes the boundaries of what is possible with AI.
+we can see that now it is entering into a new territory where you can use gpt4 to connect with existing open source application and make gpt4 more powerful
+than what it is so ideally GPT 4 is a large language model that has been open source by open AI but most of the existing gpt4 applications have kept
+gpt4 Standalone but this application tries to combine gpt4 with existing forces of Open Source applications and it is trying to manage gpt4 do a lot of things that GPT 4 otherwise would not do
+alone isolated.  The main idea behind this system is that it creates new tasks on every iteration based on the result of previous tasks and a predefined objective to get to the goal while scouting the whole 
+internet and the Large language model that it has been trained on.
+Below is the demo video showcasing its capabilities.
+
+The script works by running an infinite loop that does the following steps:
+
+1.Pulls the first task from the task list.
+2.Sends the task to the execution agent, which uses OpenAI's API to complete the task based on the context.
+3.Enriches the result
+4.Creates new tasks and reprioritizes the task list based on the objective and the result of the previous task. 
+
+Features:
+1. Uses google API for Internet access for searches and information gathering
+2. Long-Term and Short-Term memory management using pinecone
+3. GPT-4 instances for text generation
+4. Access to popular websites and platforms
+5. File storage and summarization with GPT-3.5
+6. Optional feature: Using ElevenLabs API for voice outputs.
+
+Find the attachment for the whole document on Reflexion.
+
+
+
+
+
