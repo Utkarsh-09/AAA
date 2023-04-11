@@ -1,0 +1,87 @@
+public class TranslateMain {
+
+    private static DoccumentParserService docReaderService = new DoccumentParserService();
+    private static PDFParserService pdfParserService = new PDFParserService();
+    private static AWSTranslateService awsTrasnalteService = new AWSTranslateService();
+
+    private static TMXTranslateService tmxTranslateService ;
+
+
+    public static void main(String[] args) {
+
+        String docPath = "C:\\Users\\j094\\Desktop\\Translate\\Singapore_Fintech_Festival_2022.pdf";
+        String outputPath = "C:\\Users\\j094\\Desktop\\Translate\\Singapore__translated.pdf" ;
+        String srcLang = "en";
+        String targetLang = "fr";
+
+        if(args.length ==2){
+            docPath = args[0];
+            outputPath = args[1] ;
+        }
+
+        if(args.length ==4){
+            docPath = args[0];
+            outputPath = args[1] ;
+            srcLang = args[2];
+            targetLang = args[3] ;
+        }
+
+        String tmxPath = "C:\\Users\\j094\\Desktop\\KB0042936.tmx";
+        tmxTranslateService = new TMXTranslateService(tmxPath);
+
+
+        try {
+
+            if(docPath.endsWith(".docx")) {
+                translateDoc(docPath,outputPath,srcLang,targetLang);
+            } else if(docPath.endsWith("pdf") || docPath.endsWith("jpg") ) {
+                translatePDF(docPath,outputPath,srcLang,targetLang);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private static void translateImage(String docPath, String outputPath, String srcLang, String targetLang) throws IOException {
+
+
+
+
+    }
+
+    private static void translatePDF(String docPath, String outputPath, String srcLang, String targetLang) throws IOException {
+
+        HashMap<Integer, TranlsationToken> tranlastedTokenMap = new HashMap<Integer, TranlsationToken>();
+        pdfParserService.tokenizeScannedPDF(docPath,tranlastedTokenMap);
+
+        tmxTranslateService.translate(tranlastedTokenMap ,srcLang , targetLang);
+        awsTrasnalteService.translate(tranlastedTokenMap ,srcLang , targetLang);
+
+        pdfParserService.createPDF(outputPath , docPath , tranlastedTokenMap);
+
+        //tranlastedTokenMap.forEach((key , token)-> System.out.println(key +" :: " + token.getTranslatedBy()));
+
+
+
+    }
+
+    private static void translateDoc(String docPath,String outputPath,String srcLang,String targetLang) throws IOException {
+
+        HashMap<Integer, TranlsationToken> tranlastedTokenMap = new HashMap<Integer, TranlsationToken>();
+
+        List<XWPFParagraph> tokenizedPara = docReaderService.tokenizeDoc(docPath,tranlastedTokenMap);
+
+        tmxTranslateService.translate(tranlastedTokenMap ,srcLang , targetLang);
+        awsTrasnalteService.translate(tranlastedTokenMap ,srcLang , targetLang);
+
+
+        List<XWPFParagraph> paraList = docReaderService.replaceTokens(tokenizedPara, tranlastedTokenMap);
+        docReaderService.createDoc(outputPath , paraList, docPath);
+
+        tranlastedTokenMap.forEach((key , token)-> System.out.println(key +" :: " + token.getTranslatedBy()));
+
+    }
+}
