@@ -1,0 +1,33 @@
+@RestController
+public class TranslateController {
+
+    @PostMapping("/translate")
+    public ResponseEntity<String> translateFile(@RequestParam("file") MultipartFile file,
+                                                 @RequestParam("srcLang") String srcLang,
+                                                 @RequestParam("targetLang") String targetLang) {
+        try {
+            // Save the uploaded file to a temporary location
+            Path tempFile = Files.createTempFile("translate", file.getOriginalFilename());
+            file.transferTo(tempFile);
+
+            // Generate the output file path
+            String outputPath = tempFile.getParent().toString() + File.separator
+                    + FilenameUtils.getBaseName(file.getOriginalFilename()) + "_translated."
+                    + FilenameUtils.getExtension(file.getOriginalFilename());
+
+            // Call the TranslateMain class to translate the file
+            TranslateMain.translateFile(tempFile.toString(), outputPath, srcLang, targetLang);
+
+            // Return the translated file as a response
+            File outputFile = new File(outputPath);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType("application/pdf"));
+            headers.setContentDispositionFormData(outputFile.getName(), outputFile.getName());
+            headers.setContentLength(outputFile.length());
+            return new ResponseEntity<>(new FileSystemResource(outputFile), headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+}
