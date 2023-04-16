@@ -1,0 +1,53 @@
+import React, { useRef } from 'react';
+import { render } from 'react-dom';
+
+import EmailEditor from 'react-email-editor';
+
+const App = (props) => {
+  const emailEditorRef = useRef(null);
+
+  const exportHtml = () => {
+    emailEditorRef.current.editor.exportHtml((data) => {
+      const { design, html } = data;
+      console.log('exportHtml', html);
+      // Create a Blob object from the HTML string
+    const blob = new Blob([html], { type: 'text/html' });
+
+    // Create a URL for the Blob
+    const url = URL.createObjectURL(blob);
+
+    // Create a link element for the download
+    const link = document.createElement('a');
+    link.download = 'my-email.html';
+    link.href = url;
+
+    // Add the link element to the DOM
+    document.body.appendChild(link);
+
+    // Click the link to initiate the download
+    link.click();
+
+    // Remove the link from the DOM
+    document.body.removeChild(link);
+    });
+  };
+
+  const onReady = () => {
+    // editor is ready
+    // you can load your template here;
+    // const templateJson = {};
+    // emailEditorRef.current.editor.loadDesign(templateJson);
+  };
+
+  return (
+    <div>
+      <div>
+        <button onClick={exportHtml}>Export HTML</button>
+      </div>
+
+      <EmailEditor ref={emailEditorRef} onReady={onReady} />
+    </div>
+  );
+};
+
+export default App;
