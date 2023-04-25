@@ -1,19 +1,16 @@
 Vector database - Database for the AI era?
 
-As AI continues to grow and evolve, the limitations of traditional databases become more apparent as complex data is growing at break-neck speed. 
-Enter the era of vector databases - a new breed of databases designed specifically for the demands of this unstructured data.
+As AI continues to grow and evolve, the limitations of traditional databases become more apparent as the amount of complex, unstructured data is growing at break-neck speed. 
+Enter the era of vector databases - a new breed of databases designed specifically for the demands of AI.
 Lets first understand what a vector actually is.
-Vector is just an array of numbers but what's cool about vectors is that they can represent
-more complex objects like words, sentences ,images or audio files in a continuous high dimensional space called an embedding.
-Embeddings map the semantic meaning of words together or similar features in virtually any other data type. 
-These embeddings can then be used for things like recommendation systems , search engines and generative AI but once you have your
-embeddings the question becomes where do you store them and how do you query them quickly. That's where Vector databases
-come in. In a relational database you have rows and columns , in a document database you have documents and
-collections but in a vector database you have arrays of numbers clustered together based on similarity which can be queried with ultra low latency making
-it an ideal choice for AI driven applications.
+Vectors are arrays of numbers that can represent complex objects such as words, sentences, images, or audio files in a high-dimensional space called an embedding.
+These embeddings map the semantic meaning of words and similar features in other types of data. Once you have these embeddings, the challenge becomes how to store them and query them quickly.
+That's where Vector databases
+come in. Vector databases provide an answer to this challenge by storing arrays of numbers clustered together based on similarity, which can be queried with ultra-low latency,
+ making them an ideal choice for AI-driven applications.
 
 New money for new kind of database.
-A bunch of new native Vector databases are popping up(Pinecone , Weaviate , QDrant , Milvus among the popular ones) raising millions from VCs like Andreessen Horowitz and Index Ventures around the same time. 
+Native vector databases, such as Pinecone, Weaviate, QDrant, and Milvus, are emerging and raising millions from VCs like Andreessen Horowitz and Index Ventures.
 But is all the money being thrown at these companies worth anything? Well, vectors themselves are very valuable while representing richer datasets ranging
 from text, audio, images and videos, which is perfect for the myriad of use cases that generative AI has brought up. 
 It isn’t that this throws traditional databases like Postgres or NoSQL database Redis out of the competition completely as postgres have tools like PG Vector to
@@ -40,8 +37,7 @@ Vector search and vector databases aren’t the only new systems being used for 
 There are also certain techniques popping up recently that are able to scale these LLMs(BERT specifically) to 1M tokens and beyond with 
 Recurrent Memory Transformer while maintaining high memory retrieval
 accuracy and without the use of these vector databases.
-So it will be interesting to see how these will pan out as solving their computational challenges at scale is an area of continual development.
-
+ However, solving computational challenges at scale is an ongoing area of development. It will be interesting to see how these techniques develop over time.
 
 Source :
 https://gradientflow.com/the-vector-database-index/
@@ -49,3 +45,5 @@ https://gradientflow.com/vector-database-primer/
 https://gradientflow.com/?s=vector+database&orderby=relevance&order=DESC
 https://github.com/booydar/t5-experiments/tree/scaling-report
 https://arxiv.org/pdf/2304.11062.pdf
+
+
