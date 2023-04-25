@@ -46,4 +46,31 @@ https://gradientflow.com/?s=vector+database&orderby=relevance&order=DESC
 https://github.com/booydar/t5-experiments/tree/scaling-report
 https://arxiv.org/pdf/2304.11062.pdf
 
+Native vector databases, such as Pinecone, Weaviate, QDrant, and Milvus, are gaining attention and funding from prominent
+ VCs due to their ability to handle vector data efficiently for similarity search, which is vital for many AI applications.
+ While traditional databases like Postgres or Redis can also support vector data, they may not be as optimized as 
+native vector databases. Investors are betting on the potential growth of AI, and native vector databases are seen
+ as a crucial infrastructure component for building AI systems. However, as with any investment, there is always
+ a risk involved.
+
+Native vector databases, such as Pinecone, Weaviate, QDrant, and Milvus, are gaining momentum and receiving 
+significant investments from VCs, as they offer optimized handling of vector data for similarity search, 
+a critical requirement for many AI applications. Traditional databases like Postgres or Redis can also
+ support vector data, but may not be as efficient as native vector databases. 
+Investors are bullish on AI's growth potential, and native vector databases are seen as a key 
+infrastructure element for building AI systems. Nonetheless, like any investment, there is always a degree of risk.
+
+Vector databases are expected to become a crucial component of the Foundational ML/LLM stack, as they can 
+address the limitations of large language models and enhance their output. 
+Although advanced models such as GPT-4 have demonstrated human-like reasoning and creativity, 
+they are still unreliable due to issues like hallucinations, deviations, and factual omissions. 
+Vector databases can also aid in data lineage tracking, which is critical for ensuring trust in model output.
+ These databases can efficiently store and retrieve high-dimensional vectors that represent complex data 
+structures like text, images, and graphs.
+
+In addition to vector search and vector databases, Recurrent Memory Transformer (RMT) is a recent technique 
+that enhances the long-term memory of LLMs like BERT. RMT integrates RNNs with transformer architecture, 
+allowing LLMs to handle inputs of over 1 million tokens while maintaining high accuracy in memory retrieval. 
+However, scaling these techniques poses computational challenges such as large memory, computation, and 
+optimization requirements, which require ongoing research for improvement.
 
