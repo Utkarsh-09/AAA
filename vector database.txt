@@ -73,4 +73,4 @@ that enhances the long-term memory of LLMs like BERT. RMT integrates RNNs with t
 allowing LLMs to handle inputs of over 1 million tokens while maintaining high accuracy in memory retrieval. 
 However, scaling these techniques poses computational challenges such as large memory, computation, and 
 optimization requirements, which require ongoing research for improvement.
-
+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
