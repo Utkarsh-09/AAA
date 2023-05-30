@@ -1,0 +1,54 @@
+import React, { useState } from 'react';
+import { Table } from 'semantic-ui-react';
+import * as XLSX from 'xlsx';
+
+const ExcelTable = () => {
+  const [data, setData] = useState([]);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const workbook = XLSX.read(event.target.result, { type: 'binary' });
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+      setData(jsonData);
+    };
+
+    reader.readAsBinaryString(file);
+  };
+
+  return (
+    <div>
+      <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} />
+      {data.length > 0 ? (
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              {data[0].map((cell, index) => (
+                <Table.HeaderCell key={index}>{cell}</Table.HeaderCell>
+              ))}
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            {data.slice(1).map((row, rowIndex) => (
+              <Table.Row key={rowIndex}>
+                {row.map((cell, cellIndex) => (
+                  <Table.Cell key={cellIndex}>{cell}</Table.Cell>
+                ))}
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      ) : (
+        <p>No data to display</p>
+      )}
+    </div>
+  );
+};
+
+export default ExcelTable;
