@@ -10,3 +10,33 @@ with IIT Indore believe me I've seen it all in the past year.
 Majority of my work recently shifted onto exploring the potential of generative AI, discovering its practical applications and how we can leverage it for our business.
 
 Looking back on this journey, I am amazed at the growth I've experienced and the invaluable experiences I've gained. Each day brings new challenges and opportunities for innovation, and I am excited to continue this journey with the Asia Innovation Hub team.
+
+
+I wanted to share my journey within the asia innovation hub team. It has been a truly transformative experience, filled with personal growth and valuable lessons. First and foremost I am very grateful for the training that I received during the initial months with the company. It provided me with a good start and relevant knowledge and skills needed to work for a team.
+
+Working in the innovation hub has been both exciting and challenging. The technology we work with is constantly evolving, requiring us to stay adaptable and constantly come up with fresh ideas that is expected from every member of the team to bring in new ideas from time 
+to time. There is also very active collaboration needed for which I am expected every day in office and most of our discussions happen in person which is really necessary and useful for kind of work they do as there isn't any particular workflow defined
+and new chances for a project and poc can arrive at any time.
+Collaboration plays a vital role in our work, and being able to have face-to-face discussions in the office has been incredibly beneficial.
+
+From working on end-to-end projects , building UI , attending sessions on blockchain and quantum computing to collaborating 
+with IIT Indore believe me I've seen it all in the past year.
+Majority of my work recently shifted onto exploring the potential of generative AI, discovering its practical applications and how we can leverage it for our business.
+
+Looking back on this journey, I am amazed at the growth I've experienced and the invaluable experiences I've gained. Each day brings new challenges and opportunities for innovation, and I am excited to continue this journey with the Asia Innovation Hub team.
+
+So we knew that the large language models behind these tools like chatgpt are very capable in solving these problems
+but the problem was how do we do in the best possible way.
+To do that we needed to give the tool best possible context of our problems that we were solving.
+And what is that one thing that we use to c
+Prompt engineering wasnt very well versed at that time back when the hackathon took place.
+So we knew that the large language models behind these tools like chatgpt are very capable  
+I create separate conversation threads for each expert persona of GPT. You are promptGPT. You are a prompt engineer expert for large language models. you know exactly waht to write in the most efficient wording possible to achieve the desired responses from ChatGPT. I will tell you what my goal for a thread is and you will write an optimized initial prompt when creating a new conversation thread with a GPT model. you will defie the expert persona , the parameters or rules of the responses, and the tone of voice , within the prompt you provide. your prompts should also provide any other information that a gpt thread may need to understand exactly what it needs to do to give me the most accurate answers depending on my goal with that particular thread. are you ready or is there any other information you need to perform this job to your best ability?
+
+
+You should express what you want a model to do by providing instructions that are as clear and 
+specific as you can possibly make them. This will guide the model towards the desired output,
+and reduce the chances of receiving irrelevant or incorrect responses. Don't confuse writing a  
+clear prompt with writing a short prompt. In many cases, longer prompts provide more clarity  
+and context for the model, which can lead to more detailed and relevant outputs.
+
