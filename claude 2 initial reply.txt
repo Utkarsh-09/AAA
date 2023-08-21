@@ -1,0 +1,85 @@
+Here is how you can sort the policy data using a merge sort algorithm in COBOL:
+
+IDENTIFICATION DIVISION.\
+PROGRAM-ID. SortPolicyData.
+
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+
+01 Temp-Buffer.
+05 Temp-Record OCCURS 10 TIMES.
+10 Policy-Number      PIC X(10).
+10 Policy-Holder-Name PIC X(50).
+10 Premium-Amount     PIC 9(9)V99.\
+10 Policy-Type        PIC X(15).
+10 Coverage-Limits    PIC 9(9)V99.
+10 Policy-Premium     PIC 9(9)V99.
+10 Age                PIC 9(3).
+10 Car-Value          PIC 9(9)V99.
+10 Property-Type      PIC X(20).
+10 Property-Value     PIC 9(9)V99.
+10 Coverage-Amount    PIC 9(9)V99.
+
+LINKAGE SECTION.
+01 WS-Sort-Buffer.
+05 Sort-Key            PIC X(10).
+05 Sort-Data           PIC X(200).
+
+PROCEDURE DIVISION USING WS-Sort-Buffer.
+PERFORM MERGE-SORT(1, 10)
+
+MERGE-SORT SECTION.\
+01 LeftIndex  PIC 9(4) BINARY.
+01 RightIndex PIC 9(4) BINARY.
+
+IF LeftIndex \< RightIndex
+// Calculate mid point
+COMPUTE WS-MidPoint = (LeftIndex + RightIndex) / 2
+
+```
+  // Recursively sort left half
+  PERFORM MERGE-SORT(LeftIndex, WS-MidPoint)
+
+  // Recursively sort right half
+  PERFORM MERGE-SORT(WS-MidPoint + 1, RightIndex)
+
+  // Merge sorted halves
+  PERFORM MERGE(LeftIndex, WS-MidPoint, RightIndex)
+```
+
+END-IF.
+
+MERGE SECTION.
+01 WS-MidPoint PIC 9(4) BINARY.
+01 I          PIC 9(4) BINARY.
+01 J          PIC 9(4) BINARY.
+
+// Merge loops
+PERFORM UNTIL I > WS-MidPoint OR J > RightIndex
+// Compare and move smaller element
+IF WS-Sort-Buffer(I) \<= WS-Sort-Buffer(J)
+MOVE WS-Sort-Buffer(I) TO Temp-Buffer
+ADD 1 TO I
+ELSE
+MOVE WS-Sort-Buffer(J) TO Temp-Buffer
+ADD 1 TO J
+END-IF
+END-PERFORM
+
+// Move remaining elements
+PERFORM UNTIL I > WS-MidPoint\
+MOVE WS-Sort-Buffer(I) TO Temp-Buffer
+ADD 1 TO I
+END-PERFORM
+
+PERFORM UNTIL J > RightIndex\
+MOVE WS-Sort-Buffer(J) TO Temp-Buffer
+ADD 1 TO J
+END-PERFORM
+
+// Copy back to original array
+PERFORM VARYING K FROM LeftIndex BY 1 UNTIL K > RightIndex
+MOVE Temp-Buffer(K) TO WS-Sort-Buffer(K)
+END-PERFORM.
+
+This uses a temporary buffer to merge the sorted halves, comparing the elements and moving the smaller one to maintain sorted order. The merge sort is called recursively to continue splitting and sorting the array.

@@ -1,0 +1,83 @@
+Here is pseudo-code for the COBOL insurance management system:
+
+// Main program
+Initialize DB connection
+Fetch policy data from DB
+Sort policies in memory
+Calculate premium totals
+Generate report records
+Write report to output file
+Close DB connection
+
+// Initialize DB connection
+function DBInit()
+Open connection to DB
+Prepare SQL statements
+Return connection status
+end
+
+// Fetch policy data
+procedure FetchPolicyData(policies)
+for each policy
+Execute SQL to fetch data
+Add data to policies array
+end for
+end
+
+// Sort policies array
+procedure QuickSort(policies, leftIndex, rightIndex)
+if leftIndex < rightIndex
+set pivotIndex to Partition(policies, leftIndex, rightIndex)
+QuickSort(policies, leftIndex, pivotIndex-1)
+QuickSort(policies, pivotIndex+1, rightIndex)
+end if
+end
+
+// Partition step of QuickSort
+function Partition(policies, leftIndex, rightIndex)
+set pivot to policies[rightIndex]
+set pivotIndex to leftIndex
+
+for i from leftIndex to rightIndex-1
+if policies[i] < pivot
+swap policies[i] and policies[pivotIndex]
+increment pivotIndex
+end if
+end for
+
+swap policies[pivotIndex] and policies[rightIndex]
+return pivotIndex
+end
+
+// Calculate premium totals
+procedure CalculatePremium(totals)
+for each policy in sorted policies array
+calculate premium
+add to running totals
+end for
+end
+
+// Generate report records
+procedure GenerateReport(reportRecords)
+for each policy
+populate fields in report record
+add to output array
+end for
+
+populate summary fields
+end
+
+// Write report to file
+procedure WriteReport(report, outputFile)
+for each report record
+write record to output file
+end for
+end
+
+// Close DB connection
+procedure DBClose()
+close connection to DB
+return close status
+end
+
+Let me know if any part needs more explanation!

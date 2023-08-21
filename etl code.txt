@@ -1,0 +1,99 @@
+Here is how I would write the insurance management system as an ETL pipeline in Python:
+
+# Database connection
+
+import sqlalchemy
+
+# Initialize DB connection
+
+def initialize_db():
+engine = sqlalchemy.create_engine('postgresql://...')
+return engine
+
+# Fetch policy data from DB
+
+def extract_policies(engine):
+
+policies = \[\]
+
+with engine.connect() as con:
+rs = con.execute("SELECT * FROM policies")
+for row in rs:
+policy = {}
+policy\['id'\] = row\['id'\]
+policy\['name'\] = row\['name'\]
+\# map other columns
+policies.append(policy)
+
+return policies
+
+# Sort policies list
+
+from sorting import quicksort
+
+def transform_sort_policies(policies):
+
+quicksort(policies, key=lambda p: p\['id'\])
+
+return policies
+
+# Calculate premium totals
+
+def transform_calculate_totals(policies):
+
+totals = {"premium": 0}
+
+for policy in policies:
+premium = calculate_premium(policy)
+totals\["premium"\] += premium
+
+return totals
+
+# Generate report records
+
+def transform_generate_records(policies, totals):
+
+records = \[\]
+
+for policy in policies:
+
+```
+record = {}
+record['policy'] = policy
+record['totals'] = totals
+
+records.append(record)
+```
+
+return records
+
+# Write records to CSV file
+
+import csv
+
+def load_reports(records, filename):
+
+with open(filename, 'w') as f:
+writer = csv.DictWriter(f, fieldnames=records\[0\].keys())
+writer.writeheader()
+writer.writerows(records)
+
+# Main ETL pipeline
+
+def etl():
+
+engine = initialize_db()
+policies = extract_policies(engine)
+
+policies = transform_sort_policies(policies)
+
+totals = transform_calculate_totals(policies)
+
+records = transform_generate_records(policies, totals)
+
+load_reports(records, 'reports.csv')
+
+if __name__ == '__main__':
+etl()
+
+This implements the core logic as Python functions for each ETL step. Let me know if any part needs more explanation!

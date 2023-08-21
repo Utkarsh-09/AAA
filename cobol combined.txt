@@ -1,0 +1,727 @@
+IDENTIFICATION DIVISION.
+PROGRAM-ID. CalculatePremium.
+AUTHOR. Udit Sharma.
+DATE-WRITTEN. 2023-07-21.
+DATE-COMPILED.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 PolicyRecord.
+   05 Policy-Number      PIC X(10).
+   05 Policy-Holder-Name PIC X(50).
+   05 Premium-Amount     PIC 9(9)V99.
+   05 Policy-Type        PIC X(15).  // Increased the size to accommodate the longest policy_type
+   05 Coverage-Limits    PIC 9(9)V99.
+   05 Policy-Premium     PIC 9(9)V99.
+   05 Age                PIC 9(3).
+   05 Car-Value          PIC 9(9)V99.
+   05 Property-Type      PIC X(20).
+   05 Property-Value     PIC 9(9)V99.
+   05 Coverage-Amount    PIC 9(9)V99.
+
+LINKAGE SECTION.
+01 PolicyDB2File.
+   05 PolicyDB2Record OCCURS 10 TIMES.
+      10 Policy-Number      PIC X(10).
+      10 Policy-Holder-Name PIC X(50).
+      10 Premium-Amount     PIC 9(9)V99.
+      10 Policy-Type        PIC X(15).  // Increased the size to accommodate the longest policy_type
+      10 Coverage-Limits    PIC 9(9)V99.
+      10 Policy-Premium     PIC 9(9)V99.
+      10 Age                PIC 9(3).
+      10 Car-Value          PIC 9(9)V99.
+      10 Property-Type      PIC X(20).
+      10 Property-Value     PIC 9(9)V99.
+      10 Coverage-Amount    PIC 9(9)V99.
+
+PROCEDURE DIVISION USING PolicyDB2File.
+    DISPLAY "Calculating premiums for each policy..."
+    PERFORM VARYING Record-Count FROM 1 BY 1
+      UNTIL Record-Count > 10
+      MOVE Policy-Type TO PolicyRecord.Policy-Type
+      MOVE Age TO PolicyRecord.Age
+      MOVE Car-Value TO PolicyRecord.Car-Value
+      MOVE Property-Type TO PolicyRecord.Property-Type
+      MOVE Property-Value TO PolicyRecord.Property-Value
+      MOVE Coverage-Amount TO PolicyRecord.Coverage-Amount
+
+      IF PolicyRecord.Policy-Type = "CAR_INSURANCE"
+          MOVE 100000 TO PolicyRecord.Coverage-Limits
+          MOVE 1000 TO PolicyRecord.Policy-Premium
+
+          ADDITIONAL-PREMIUM CAR-INSURANCE
+          COMPUTE Policy-Premium(Record-Count) = Policy-Premium(Record-Count) + Premium-Amount-Temp
+      ELSE IF PolicyRecord.Policy-Type = "HOME_INSURANCE"
+          MOVE 500000 TO PolicyRecord.Coverage-Limits
+          MOVE 2000 TO PolicyRecord.Policy-Premium
+
+          ADDITIONAL-PREMIUM HOME-INSURANCE
+          COMPUTE Policy-Premium(Record-Count) = Policy-Premium(Record-Count) + Premium-Amount-Temp
+      ELSE IF PolicyRecord.Policy-Type = "LIFE_INSURANCE"
+          MOVE 1000000 TO PolicyRecord.Coverage-Limits
+          MOVE 3000 TO PolicyRecord.Policy-Premium
+
+          ADDITIONAL-PREMIUM LIFE-INSURANCE
+          COMPUTE Policy-Premium(Record-Count) = Policy-Premium(Record-Count) + Premium-Amount-Temp
+      ELSE
+          MOVE 0 TO PolicyRecord.Coverage-Limits
+          MOVE 0 TO PolicyRecord.Policy-Premium
+      END-IF
+      MOVE PolicyRecord.Coverage-Limits TO Coverage-Limits(Record-Count)
+      MOVE PolicyRecord.Policy-Premium TO Policy-Premium(Record-Count)
+    END-PERFORM.
+    DISPLAY "Premiums calculated."
+    EXIT PROGRAM.
+
+ADDITIONAL-PREMIUM SECTION.
+
+ADD 300 TO Premium-Amount-Temp  // Additional premium based on age
+    IF Age < 25
+ADD 200 TO Premium-Amount-Temp
+    ELSE IF Age < 41
+ADD 100 TO Premium-Amount-Temp
+    ELSE IF Age <= 60
+ADD 400 TO Premium-Amount-Temp
+
+ADD 0.05 TO Premium-Amount-Temp   // Additional premium based on car value
+    IF Car-Value < 20000
+ADD 0.08 TO Premium-Amount-Temp
+    ELSE IF Car-Value < 50000
+ADD 0.10 TO Premium-Amount-Temp
+
+END-ADDITIONAL-PREMIUM.
+
+ADDITIONAL-PREMIUM SECTION.
+
+ADD 300 TO Premium-Amount-Temp  // Additional premium based on age
+    IF Age < 25
+ADD 200 TO Premium-Amount-Temp
+    ELSE IF Age < 41
+ADD 100 TO Premium-Amount-Temp
+    ELSE IF Age <= 60
+ADD 400 TO Premium-Amount-Temp
+
+ADD 0.05 TO Premium-Amount-Temp   // Additional premium based on car value
+    IF Car-Value < 20000
+ADD 0.08 TO Premium-Amount-Temp
+    ELSE IF Car-Value < 50000
+ADD 0.10 TO Premium-Amount-Temp
+
+END-ADDITIONAL-PREMIUM.
+
+ADDITIONAL-PREMIUM SECTION.
+
+ADD 300 TO Premium-Amount-Temp  // Additional premium based on age
+    IF Age < 25
+ADD 200 TO Premium-Amount-Temp
+    ELSE IF Age < 41
+ADD 100 TO Premium-Amount-Temp
+    ELSE IF Age <= 60
+ADD 400 TO Premium-Amount-Temp
+
+ADD 0.05 TO Premium-Amount-Temp   // Additional premium based on car value
+    IF Car-Value < 20000
+ADD 0.08 TO Premium-Amount-Temp
+    ELSE IF Car-Value < 50000
+ADD 0.10 TO Premium-Amount-Temp
+
+END-ADDITIONAL-PREMIUM.
+
+ADDITIONAL-PREMIUM SECTION.
+
+ADD 300 TO Premium-Amount-Temp  // Additional premium based on age
+    IF Age < 25
+ADD 200 TO Premium-Amount-Temp
+    ELSE IF Age < 41
+ADD 100 TO Premium-Amount-Temp
+    ELSE IF Age <= 60
+ADD 400 TO Premium-Amount-Temp
+
+ADD 0.05 TO Premium-Amount-Temp   // Additional premium based on car value
+    IF Car-Value < 20000
+ADD 0.08 TO Premium-Amount-Temp
+    ELSE IF Car-Value < 50000
+ADD 0.10 TO Premium-Amount-Temp
+
+END-ADDITIONAL-PREMIUM.
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID. ClaimProcessing.
+AUTHOR. Udit Sharma.
+DATE-WRITTEN. 2023-07-21.
+DATE-COMPILED.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 PolicyRecord.
+   05 Policy-Number      PIC X(10).
+   05 Policy-Holder-Name PIC X(50).
+   05 Premium-Amount     PIC 9(9)V99.
+   05 Policy-Type        PIC X(15).  
+   05 Coverage-Limits    PIC 9(9)V99.
+   05 Policy-Premium     PIC 9(9)V99.
+   05 Claim-Status       PIC X(10).
+
+LINKAGE SECTION.
+01 ClaimRecord.
+   05 Policy-Number      PIC X(10).
+   05 Date-of-Loss       PIC X(10).
+   05 Cause-of-Loss      PIC X(10).
+   05 Amount-of-Loss     PIC 9(9)V99.
+
+PROCEDURE DIVISION USING PolicyDB2File, ClaimRecord.
+    PERFORM VARYING Record-Count FROM 1 BY 1
+      UNTIL Record-Count > 10
+      IF PolicyDB2Record(Record-Count).Policy-Number = ClaimRecord.Policy-Number
+          MOVE PolicyDB2Record(Record-Count).Coverage-Limits TO PolicyRecord.Coverage-Limits
+          MOVE PolicyDB2Record(Record-Count).Policy-Premium TO PolicyRecord.Policy-Premium
+      END-IF
+    END-PERFORM.
+
+    IF ClaimRecord.Date-of-Loss > "12/31/2023"
+        MOVE "REJECT" TO Claim-Status
+    ELSE
+        MOVE ClaimRecord.Cause-of-Loss TO PolicyRecord.Policy-Type
+        IF PolicyRecord.Policy-Type = "FIRE"
+            MOVE 5000 TO ClaimRecord.Amount-of-Loss
+        ELSE IF PolicyRecord.Policy-Type = "THEFT"
+            MOVE 10000 TO ClaimRecord.Amount-of-Loss
+        ELSE IF PolicyRecord.Policy-Type = "FLOOD"
+            MOVE 20000 TO ClaimRecord.Amount-of-Loss
+        ELSE
+            MOVE 0 TO ClaimRecord.Amount-of-Loss
+            MOVE "REJECT" TO Claim-Status
+        END-IF
+        IF ClaimRecord.Amount-of-Loss <= PolicyRecord.Coverage-Limits
+            MOVE "PAY" TO Claim-Status
+        ELSE
+            MOVE "REJECT" TO Claim-Status
+        END-IF
+    END-IF
+
+    EXIT PROGRAM.
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID. DB2Close.
+AUTHOR. Udit Sharma.
+DATE-WRITTEN. 2023-07-21.
+DATE-COMPILED.
+PROCEDURE DIVISION.
+    DISPLAY "Closing DB2 connection..."
+    // Add your logic to close the DB2 connection here
+
+    // Simulate closing the DB2 connection (random values)
+    MOVE "DB2_CONNECTION_CLOSED" TO DB2-CLOSE-STATUS
+
+    // Check if the DB2 connection was successfully closed
+    IF DB2-CLOSE-STATUS = "DB2_CONNECTION_CLOSED"
+        DISPLAY "DB2 connection closed successfully."
+    ELSE
+        DISPLAY "Error: Failed to close DB2 connection."
+    END-IF
+
+    EXIT PROGRAM.
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID. DB2Init.
+AUTHOR. Udit Sharma.
+DATE-WRITTEN. 2023-07-21.
+DATE-COMPILED.
+PROCEDURE DIVISION.
+    DISPLAY "Initializing DB2 connection..."
+    // Add your logic to initialize the DB2 connection here
+
+    // Simulate initializing the DB2 connection (random values)
+    MOVE "DB2_CONNECTION_SUCCESSFUL" TO DB2-STATUS
+
+    // Simulate preparing statements (random values)
+    MOVE "STATEMENTS_PREPARED" TO DB2-PREPARED-STATUS
+
+    // Check if the DB2 connection and statement preparation were successful
+    IF DB2-STATUS = "DB2_CONNECTION_SUCCESSFUL" AND DB2-PREPARED-STATUS = "STATEMENTS_PREPARED"
+        DISPLAY "DB2 connection initialized successfully."
+    ELSE
+        DISPLAY "Error: DB2 connection initialization failed."
+    END-IF
+
+    EXIT PROGRAM.
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID. FetchPolicyData.
+AUTHOR. Udit Sharma.
+DATE-WRITTEN. 2023-07-21.
+DATE-COMPILED.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 PolicyDB2File.
+   05 PolicyDB2Record OCCURS 10 TIMES.
+      10 Policy-Number      PIC X(10).
+      10 Policy-Holder-Name PIC X(50).
+      10 Premium-Amount     PIC 9(9)V99.
+      10 Policy-Type        PIC X(15).  // Increased the size to accommodate the longest policy_type
+      10 Coverage-Limits    PIC 9(9)V99.
+      10 Policy-Premium     PIC 9(9)V99.
+      10 Age                PIC 9(3).
+      10 Car-Value          PIC 9(9)V99.
+      10 Property-Type      PIC X(20).
+      10 Property-Value     PIC 9(9)V99.
+      10 Coverage-Amount    PIC 9(9)V99.
+
+PROCEDURE DIVISION USING PolicyDB2File, WS-Sort-Buffer.
+    DISPLAY "Fetching policy data from DB2..."
+    PERFORM VARYING Record-Count FROM 1 BY 1
+      UNTIL Record-Count > 10
+      MOVE SPACES TO PolicyDB2Record(Record-Count)
+
+      // Simulate fetching random data for each policy record
+      MOVE "POLICY00" & Record-Count TO Policy-Number(Record-Count)
+      MOVE "Policy Holder " & Record-Count TO Policy-Holder-Name(Record-Count)
+      COMPUTE Premium-Amount(Record-Count) = Record-Count * 100.50
+      MOVE RANDOM-POLICY-TYPE TO Policy-Type(Record-Count)
+      COMPUTE Coverage-Limits(Record-Count) = Record-Count * 1000
+      COMPUTE Policy-Premium(Record-Count) = Record-Count * 200.75
+      MOVE Record-Count TO Age(Record-Count)
+      COMPUTE Car-Value(Record-Count) = Record-Count * 5000.50
+      MOVE RANDOM-PROPERTY-TYPE TO Property-Type(Record-Count)
+      COMPUTE Property-Value(Record-Count) = Record-Count * 10000.25
+      COMPUTE Coverage-Amount(Record-Count) = Record-Count * 5000
+    END-PERFORM.
+    DISPLAY "Policy data fetched."
+    EXIT PROGRAM.
+
+RANDOM-POLICY-TYPE SECTION.
+01 Random-Policy-Type PIC X.
+PROCEDURE DIVISION.
+    MOVE FUNCTION RANDOM(3) TO Random-Policy-Type
+    IF Random-Policy-Type = 1
+        MOVE "CAR_INSURANCE" TO Random-Policy-Type
+    ELSE IF Random-Policy-Type = 2
+        MOVE "HOME_INSURANCE" TO Random-Policy-Type
+    ELSE
+        MOVE "LIFE_INSURANCE" TO Random-Policy-Type
+    END-IF.
+    EXIT PROGRAM.
+
+RANDOM-PROPERTY-TYPE SECTION.
+01 Random-Property-Type PIC X.
+PROCEDURE DIVISION.
+    MOVE FUNCTION RANDOM(3) TO Random-Property-Type
+    IF Random-Property-Type = 1
+        MOVE "Condo" TO Random-Property-Type
+    ELSE IF Random-Property-Type = 2
+        MOVE "Townhouse" TO Random-Property-Type
+    ELSE
+        MOVE "Single-family home" TO Random-Property-Type
+    END-IF.
+    EXIT PROGRAM.
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID. GenerateReport.
+AUTHOR. Udit Sharma.
+DATE-WRITTEN. 2023-07-21.
+DATE-COMPILED.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 PolicyRecord.
+   05 Policy-Number      PIC X(10).
+   05 Policy-Holder-Name PIC X(50).
+   05 Premium-Amount     PIC 9(9)V99.
+   05 Policy-Type        PIC X(15).  // Increased the size to accommodate the longest policy_type
+   05 Coverage-Limits    PIC 9(9)V99.
+   05 Policy-Premium     PIC 9(9)V99.
+   05 Age                PIC 9(3).
+   05 Car-Value          PIC 9(9)V99.
+   05 Property-Type      PIC X(20).
+   05 Property-Value     PIC 9(9)V99.
+   05 Coverage-Amount    PIC 9(9)V99.
+
+LINKAGE SECTION.
+01 PolicyReportRecord.
+   05 Policy-Number       PIC X(10).
+   05 Policy-Type         PIC X(15).
+   05 Policy-Holder-Name  PIC X(50).
+   05 Coverage-Limits     PIC 9(9)V99.
+   05 Policy-Premium      PIC 9(9)V99.
+   05 Claim-Status        PIC X(10).
+   05 Age                 PIC 9(3).
+   05 Car-Value           PIC 9(9)V99.
+   05 Property-Type       PIC X(20).
+   05 Property-Value      PIC 9(9)V99.
+   05 Coverage-Amount     PIC 9(9)V99.
+
+01 PolicySummaryReport.
+   05 Total-Policies      PIC 9(5) VALUE 0.
+   05 Total-Premiums      PIC 9(11)V99 VALUE 0.
+   05 Total-Claims        PIC 9(5) VALUE 0.
+   05 Total-Rejected-Claims PIC 9(5) VALUE 0.
+
+PROCEDURE DIVISION USING PolicyReportRecord, PolicySummaryReport.
+    DISPLAY "Generating policy summary report..."
+    MOVE Policy-Premium TO Premium-Amount-Temp
+    ADD Premium-Amount-Temp TO Total-Premiums
+    ADD 1 TO Total-Policies
+
+    IF Claim-Status = "PAY"
+        ADD 1 TO Total-Claims
+    ELSE
+        ADD 1 TO Total-Rejected-Claims
+    END-IF
+
+    MOVE Policy-Number TO PolicyIMSRecord.Policy-Number-IMS
+    MOVE Policy-Holder-Name TO PolicyIMSRecord.Policy-Data-IMS
+    MOVE Policy-Type TO PolicyIMSRecord.Policy-Type-IMS
+    MOVE Coverage-Limits TO PolicyIMSRecord.Coverage-Limits-IMS
+    MOVE Policy-Premium TO PolicyIMSRecord.Policy-Premium-IMS
+    MOVE Age TO PolicyIMSRecord.Age-IMS
+    MOVE Car-Value TO PolicyIMSRecord.Car-Value-IMS
+    MOVE Property-Type TO PolicyIMSRecord.Property-Type-IMS
+    MOVE Property-Value TO PolicyIMSRecord.Property-Value-IMS
+    MOVE Coverage-Amount TO PolicyIMSRecord.Coverage-Amount-IMS
+
+    // Add other fields to PolicyIMSRecord as required for the report
+
+    MOVE PolicyIMSRecord TO PolicyIMSFile
+    WRITE PolicyIMSRecord TO PolicyIMSFile
+
+    DISPLAY "Policy summary report generated."
+    EXIT PROGRAM.
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PolicyCreation.
+AUTHOR. YourName.
+DATE-WRITTEN. 2023-07-21.
+DATE-COMPILED.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 PolicyRecord.
+   05 Policy-Number      PIC X(10).
+   05 Policy-Holder-Name PIC X(50).
+   05 Premium-Amount     PIC 9(9)V99.
+   05 Policy-Type        PIC X(15).  // Increased the size to accommodate the longest policy_type
+   05 Coverage-Limits    PIC 9(9)V99.
+    05 Policy-Premium     PIC 9(9)V99.
+   05 Age                PIC 9(3).
+   05 Car-Value          PIC 9(9)V99.
+   05 Property-Type      PIC X(20).
+   05 Property-Value     PIC 9(9)V99.
+   05 Coverage-Amount    PIC 9(9)V99.
+
+LINKAGE SECTION.
+01 PolicyDB2File.
+   05 PolicyDB2Record OCCURS 10 TIMES.
+      10 Policy-Number      PIC X(10).
+      10 Policy-Holder-Name PIC X(50).
+      10 Premium-Amount     PIC 9(9)V99.
+      10 Policy-Type        PIC X(15).  // Increased the size to accommodate the longest policy_type
+      10 Coverage-Limits    PIC 9(9)V99.
+      10 Policy-Premium     PIC 9(9)V99.
+      10 Age                PIC 9(3).
+      10 Car-Value          PIC 9(9)V99.
+      10 Property-Type      PIC X(20).
+      10 Property-Value     PIC 9(9)V99.
+      10 Coverage-Amount    PIC 9(9)V99.
+
+PROCEDURE DIVISION USING PolicyDB2File.
+    PERFORM VARYING Record-Count FROM 1 BY 1
+      UNTIL Record-Count > 10
+      MOVE Policy-Type TO PolicyRecord.Policy-Type
+      MOVE Age TO PolicyRecord.Age
+      MOVE Car-Value TO PolicyRecord.Car-Value
+      MOVE Property-Type TO PolicyRecord.Property-Type
+      MOVE Property-Value TO PolicyRecord.Property-Value
+      MOVE Coverage-Amount TO PolicyRecord.Coverage-Amount
+
+      IF PolicyRecord.Policy-Type = "CAR_INSURANCE"
+          MOVE 100000 TO PolicyRecord.Coverage-Limits
+          MOVE 1000 TO PolicyRecord.Policy-Premium
+
+          ADDITIONAL-PREMIUM CAR-INSURANCE
+          COMPUTE Policy-Premium(Record-Count) = Policy-Premium(Record-Count) + Premium-Amount-Temp
+      ELSE IF PolicyRecord.Policy-Type = "HOME_INSURANCE"
+          MOVE 500000 TO PolicyRecord.Coverage-Limits
+          MOVE 2000 TO PolicyRecord.Policy-Premium
+
+          ADDITIONAL-PREMIUM HOME-INSURANCE
+          COMPUTE Policy-Premium(Record-Count) = Policy-Premium(Record-Count) + Premium-Amount-Temp
+      ELSE IF PolicyRecord.Policy-Type = "LIFE_INSURANCE"
+          MOVE 1000000 TO PolicyRecord.Coverage-Limits
+          MOVE 3000 TO PolicyRecord.Policy-Premium
+
+          ADDITIONAL-PREMIUM LIFE-INSURANCE
+          COMPUTE Policy-Premium(Record-Count) = Policy-Premium(Record-Count) + Premium-Amount-Temp
+      ELSE
+          MOVE 0 TO PolicyRecord.Coverage-Limits
+          MOVE 0 TO PolicyRecord.Policy-Premium
+      END-IF
+      MOVE PolicyRecord.Coverage-Limits TO Coverage-Limits(Record-Count)
+      MOVE PolicyRecord.Policy-Premium TO Policy-Premium(Record-Count)
+    END-PERFORM.
+    EXIT PROGRAM.
+
+ADDITIONAL-PREMIUM SECTION.
+
+ADD 300 TO Premium-Amount-Temp  // Additional premium based on age
+    IF Age < 25
+ADD 200 TO Premium-Amount-Temp
+    ELSE IF Age < 41
+ADD 100 TO Premium-Amount-Temp
+    ELSE IF Age <= 60
+ADD 400 TO Premium-Amount-Temp
+
+ADD 0.05 TO Premium-Amount-Temp   // Additional premium based on car value
+    IF Car-Value < 20000
+ADD 0.08 TO Premium-Amount-Temp
+    ELSE IF Car-Value < 50000
+ADD 0.10 TO Premium-Amount-Temp
+
+END-ADDITIONAL-PREMIUM.
+
+ADDITIONAL-PREMIUM SECTION.
+
+ADD 300 TO Premium-Amount-Temp  // Additional premium based on age
+    IF Age < 25
+ADD 200 TO Premium-Amount-Temp
+    ELSE IF Age < 41
+ADD 100 TO Premium-Amount-Temp
+    ELSE IF Age <= 60
+ADD 400 TO Premium-Amount-Temp
+
+ADD 0.05 TO Premium-Amount-Temp   // Additional premium based on car value
+    IF Car-Value < 20000
+ADD 0.08 TO Premium-Amount-Temp
+    ELSE IF Car-Value < 50000
+ADD 0.10 TO Premium-Amount-Temp
+
+END-ADDITIONAL-PREMIUM.
+
+ADDITIONAL-PREMIUM SECTION.
+
+ADD 300 TO Premium-Amount-Temp  // Additional premium based on age
+    IF Age < 25
+ADD 200 TO Premium-Amount-Temp
+    ELSE IF Age < 41
+ADD 100 TO Premium-Amount-Temp
+    ELSE IF Age <= 60
+ADD 400 TO Premium-Amount-Temp
+
+ADD 0.05 TO Premium-Amount-Temp   // Additional premium based on car value
+    IF Car-Value < 20000
+ADD 0.08 TO Premium-Amount-Temp
+    ELSE IF Car-Value < 50000
+ADD 0.10 TO Premium-Amount-Temp
+
+END-ADDITIONAL-PREMIUM.
+
+ADDITIONAL-PREMIUM SECTION.
+
+ADD 300 TO Premium-Amount-Temp  // Additional premium based on age
+    IF Age < 25
+ADD 200 TO Premium-Amount-Temp
+    ELSE IF Age < 41
+ADD 100 TO Premium-Amount-Temp
+    ELSE IF Age <= 60
+ADD 400 TO Premium-Amount-Temp
+
+ADD 0.05 TO Premium-Amount-Temp   // Additional premium based on car value
+    IF Car-Value < 20000
+ADD 0.08 TO Premium-Amount-Temp
+    ELSE IF Car-Value < 50000
+ADD 0.10 TO Premium-Amount-Temp
+
+END-ADDITIONAL-PREMIUM.
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PolicyRenewal.
+AUTHOR. Udit Sharma.
+DATE-WRITTEN. 2023-07-21.
+DATE-COMPILED.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 PolicyRecord.
+   05 Policy-Number      PIC X(10).
+   05 Policy-Holder-Name PIC X(50).
+   05 Premium-Amount     PIC 9(9)V99.
+   05 Policy-Type        PIC X(15).  
+   05 Coverage-Limits    PIC 9(9)V99.
+   05 Policy-Premium     PIC 9(9)V99.
+
+LINKAGE SECTION.
+01 PolicyDB2File.
+   05 PolicyDB2Record OCCURS 10 TIMES.
+      10 Policy-Number      PIC X(10).
+      10 Policy-Holder-Name PIC X(50).
+      10 Premium-Amount     PIC 9(9)V99.
+      10 Policy-Type        PIC X(15).  
+      10 Coverage-Limits    PIC 9(9)V99.
+      10 Policy-Premium     PIC 9(9)V99.
+
+PROCEDURE DIVISION USING PolicyDB2File.
+    PERFORM VARYING Record-Count FROM 1 BY 1
+      UNTIL Record-Count > 10
+      MOVE Policy-Type TO PolicyRecord.Policy-Type
+      IF PolicyRecord.Policy-Type = "CAR_INSURANCE"
+          MOVE 200000 TO PolicyRecord.Coverage-Limits
+          MOVE 1200 TO PolicyRecord.Policy-Premium
+      ELSE IF PolicyRecord.Policy-Type = "HOME_INSURANCE"
+          MOVE 600000 TO PolicyRecord.Coverage-Limits
+          MOVE 2400 TO PolicyRecord.Policy-Premium
+      ELSE IF PolicyRecord.Policy-Type = "LIFE_INSURANCE"
+          MOVE 1200000 TO PolicyRecord.Coverage-Limits
+          MOVE 3600 TO PolicyRecord.Policy-Premium
+      ELSE
+          MOVE 0 TO PolicyRecord.Coverage-Limits
+          MOVE 0 TO PolicyRecord.Policy-Premium
+      END-IF
+      MOVE PolicyRecord.Coverage-Limits TO Coverage-Limits(Record-Count)
+      MOVE PolicyRecord.Policy-Premium TO Policy-Premium(Record-Count)
+    END-PERFORM.
+    EXIT PROGRAM.
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PolicyReport.
+AUTHOR. YourName.
+DATE-WRITTEN. 2023-07-21.
+DATE-COMPILED.
+ENVIRONMENT DIVISION.
+INPUT-OUTPUT SECTION.
+FILE-CONTROL.
+    SELECT PolicyIMSFile ASSIGN TO 'POLICYIMS.DAT'
+        ORGANIZATION IS LINE SEQUENTIAL.
+
+DATA DIVISION.
+FILE SECTION.
+FD PolicyIMSFile.
+01 PolicyIMSRecord.
+   05 Policy-Number-IMS   PIC X(10).
+   05 Policy-Data-IMS     PIC X(200).  // Increased the size to accommodate the new fields.
+
+WORKING-STORAGE SECTION.
+01 Temp-Record.
+   05 Policy-Number-Temp  PIC X(10).
+   05 Policy-Holder-Name-Temp  PIC X(50).
+   05 Premium-Amount-Temp  PIC 9(9)V99.
+   05 Policy-Type-Temp  PIC X(15).  // Increased the size to accommodate the longest policy_type
+   05 Coverage-Limits-Temp  PIC 9(9)V99.
+   05 Policy-Premium-Temp  PIC 9(9)V99.
+   05 Claim-Status-Temp  PIC X(10).
+
+01 WS-Sort-Buffer.
+   05 Sort-Key PIC X(10).
+   05 Sort-Data PIC X(200).  // Increased the size to accommodate the new fields.
+
+01 Total-Premium-Amount PIC 9(11)V99 VALUE 0.
+01 Record-Count         PIC 9(5) VALUE 0.
+
+01 Switch-Variable      PIC X VALUE 'N'.
+
+01 PolicyReportRecord.
+   05 Policy-Number       PIC X(10).
+   05 Policy-Type         PIC X(15).
+   05 Policy-Holder-Name  PIC X(50).
+   05 Coverage-Limits     PIC 9(9)V99.
+   05 Policy-Premium      PIC 9(9)V99.
+   05 Claim-Status        PIC X(10).
+   05 Age                 PIC 9(3).
+   05 Car-Value           PIC 9(9)V99.
+   05 Property-Type       PIC X(20).
+   05 Property-Value      PIC 9(9)V99.
+   05 Coverage-Amount     PIC 9(9)V99.
+
+01 PolicySummaryReport.
+   05 Total-Policies      PIC 9(5) VALUE 0.
+   05 Total-Premiums      PIC 9(11)V99 VALUE 0.
+   05 Total-Claims        PIC 9(5) VALUE 0.
+   05 Total-Rejected-Claims PIC 9(5) VALUE 0.
+
+PROCEDURE DIVISION.
+Begin.
+    CALL 'DB2-INIT'           // Initialize DB2 connection
+
+    CALL 'FETCH-POLICY-DATA'   // Fetch data from DB2 tables
+    CALL 'SORT-POLICY-DATA'    // Sort data in memory
+
+    CALL 'CALCULATE-PREMIUM'   // Calculate total premium amount
+    CALL 'GENERATE-REPORT'     // Generate the policy summary report
+
+    CALL 'WRITE-REPORT'        // Write the report to PolicyIMSFile
+
+    CALL 'DB2-CLOSE'          // Close DB2 connection
+
+    STOP RUN.
+
+CALL 'FETCH-POLICY-DATA' USING PolicyDB2File, WS-Sort-Buffer.
+CALL 'SORT-POLICY-DATA' USING WS-Sort-Buffer.
+CALL 'CALCULATE-PREMIUM' USING Total-Premium-Amount.
+CALL 'GENERATE-REPORT' USING PolicyReportRecord, PolicySummaryReport.
+
+CALL 'WRITE-REPORT' USING PolicyIMSFile, PolicyIMSRecord.
+
+STOP RUN.
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID. SortPolicyData.
+AUTHOR. Udit Sharma.
+DATE-WRITTEN. 2023-07-21.
+DATE-COMPILED.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 Temp-Buffer.
+   05 Temp-Record OCCURS 10 TIMES.
+      10 Policy-Number      PIC X(10).
+      10 Policy-Holder-Name PIC X(50).
+      10 Premium-Amount     PIC 9(9)V99.
+      10 Policy-Type        PIC X(15).  // Increased the size to accommodate the longest policy_type
+      10 Coverage-Limits    PIC 9(9)V99.
+      10 Policy-Premium     PIC 9(9)V99.
+      10 Age                PIC 9(3).
+      10 Car-Value          PIC 9(9)V99.
+      10 Property-Type      PIC X(20).
+      10 Property-Value     PIC 9(9)V99.
+      10 Coverage-Amount    PIC 9(9)V99.
+
+PROCEDURE DIVISION USING WS-Sort-Buffer.
+    DISPLAY "Sorting policy data using Merge Sort..."
+    PERFORM MERGE-SORT(1, 10)  // Assuming 10 records in PolicyDB2Record
+    DISPLAY "Policy data sorted."
+    EXIT PROGRAM.
+
+MERGE-SORT SECTION.
+01 LeftIndex  PIC 9(4) BINARY.
+01 RightIndex PIC 9(4) BINARY.
+PROCEDURE DIVISION USING LeftIndex, RightIndex.
+    IF LeftIndex < RightIndex
+        COMPUTE WS-MidPoint = (LeftIndex + RightIndex) / 2
+        PERFORM MERGE-SORT(LeftIndex, WS-MidPoint)
+        PERFORM MERGE-SORT(WS-MidPoint + 1, RightIndex)
+        PERFORM MERGE(LeftIndex, WS-MidPoint, RightIndex)
+    END-IF.
+    EXIT MERGE-SORT.
+
+MERGE SECTION.
+01 WS-MidPoint PIC 9(4) BINARY.
+01 I          PIC 9(4) BINARY.
+01 J          PIC 9(4) BINARY.
+PROCEDURE DIVISION USING LeftIndex, WS-MidPoint, RightIndex.
+    MOVE LeftIndex TO I
+    MOVE WS-MidPoint + 1 TO J
+    MOVE LeftIndex TO K
+    PERFORM VARYING M FROM 1 BY 1 UNTIL M > RightIndex - LeftIndex + 1
+        IF I > WS-MidPoint
+            MOVE PolicyDB2Record(J) TO Temp-Record(M)
+            ADD 1 TO J
+        ELSE IF J > RightIndex
+            MOVE PolicyDB2Record(I) TO Temp-Record(M)
+            ADD 1 TO I
+        ELSE IF PolicyDB2Record(I).Policy-Number <= PolicyDB2Record(J).Policy-Number
+            MOVE PolicyDB2Record(I) TO Temp-Record(M)
+            ADD 1 TO I
+        ELSE
+            MOVE PolicyDB2Record(J) TO Temp-Record(M)
+            ADD 1 TO J
+        END-IF
+    END-PERFORM.
+    PERFORM VARYING M FROM 1 BY 1 UNTIL M > RightIndex - LeftIndex + 1
+        MOVE Temp-Record(M) TO PolicyDB2Record(K)
+        ADD 1 TO K
+    END-PERFORM.
+    EXIT MERGE.
+
+

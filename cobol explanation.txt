@@ -1,0 +1,41 @@
+Here are the steps to sort and generate a policy report in COBOL:
+
+Initialize DB2 connection
+CALL 'DB2-INIT'
+
+Fetch policy data from DB2
+CALL 'FETCH-POLICY-DATA'
+Using PolicyDB2File and WS-Sort-Buffer
+
+Sort policy data in memory
+CALL 'SORT-POLICY-DATA'
+Using WS-Sort-Buffer
+
+Calculate premium totals
+CALL 'CALCULATE-PREMIUM'
+Using Total-Premium-Amount
+
+Generate the report
+CALL 'GENERATE-REPORT'
+Using PolicyReportRecord and PolicySummaryReport
+
+Write the report to a file
+CALL 'WRITE-REPORT'
+Using PolicyIMSFile and PolicyIMSRecord
+
+Close DB2 connection
+CALL 'DB2-CLOSE'
+
+Stop the program
+STOP RUN
+
+The key programs are:
+
+FETCH-POLICY-DATA: Gets data from DB2
+SORT-POLICY-DATA: Sorts the data in memory
+CALCULATE-PREMIUM: Calculates totals
+GENERATE-REPORT: Populates report records
+WRITE-REPORT: Writes report to file
+DB2-INIT and DB2-CLOSE handle the DB2 connection initialization and closure.
+
+Let me know if any part needs more explanation!
