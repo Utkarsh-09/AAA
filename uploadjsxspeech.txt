@@ -1,103 +1,77 @@
-.root {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Ensures full viewport height */
-    margin: 0; /* Removes any default margins */
-  }
-  
-  .upload-title {
-    margin-bottom: 16px;
-  }
-  
-  .upload-btn-wrapper,
-  .upload-file-btn {
-    margin-top: 16px;
-  }
-  
-
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Input, Typography, Container } from '@mui/material';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { Button, Snackbar } from '@material-ui/core';
+import { CloudUpload as CloudUploadIcon } from '@material-ui/icons';
 import './Upload.css';
+import Alert from '@material-ui/lab/Alert'; 
 
-const Upload = () => {
-  const [file, setFile] = useState(null);
-  const navigate = useNavigate();
+function UploadAudioComponent() {
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState('success');
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('audio/')) {
+      setMessage('File uploaded successfully!');
+      setSeverity('success');
+    } else {
+      setMessage('Please upload a valid audio file!');
+      setSeverity('error');
+    }
+    setSnackbarOpen(true);
   };
 
-  const handleUpload = () => {
-    setTimeout(() => {
-      console.log("File uploaded:", file);
-      navigate('/app');
-    }, 1000);
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
   };
 
   return (
-    <Container maxWidth="sm" className="root">
-      <Typography variant="h4" gutterBottom className="upload-title">
-        Upload Audio File
-      </Typography>
-      <Input
+    <div className="root">
+      <input
         accept="audio/*"
+        className="input"
         id="contained-button-file"
         type="file"
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
+        onChange={handleUpload}
       />
-      <label htmlFor="contained-button-file" className="upload-btn-wrapper">
+      <label htmlFor="contained-button-file">
         <Button
           variant="contained"
-          component="span"
+          color="default"
+          className="button"
           startIcon={<CloudUploadIcon />}
-          size="large"
+          component="span"
         >
-          Choose File
+          Upload Audio
         </Button>
       </label>
-      <Button
-        variant="outlined"
-        onClick={handleUpload}
-        disabled={!file}
-        className="upload-file-btn"
-        size="large"
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        Upload
-      </Button>
-    </Container>
+        <Alert onClose={handleCloseSnackbar} severity={severity} elevation={6} variant="filled">
+          {message}
+        </Alert>
+      </Snackbar>
+    </div>
   );
-};
+}
 
-export default Upload;
+export default UploadAudioComponent;
 
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
+.button {
+  margin: 16px; /* 2 * spacing unit of the default Material-UI theme */
+}
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './index.css';
-import App from './App';
-import Upload from './Upload';
-import reportWebVitals from './reportWebVitals';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <Router>
-  <Routes>
-    <Route index element={<Upload />} />
-    <Route path="/app" element={<App />} />
-  </Routes>
-</Router>,
-document.getElementById('root')
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+.input {
+  display: none;
+}
