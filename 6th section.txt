@@ -1,0 +1,173 @@
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/oEPVq1Os2kd
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ * 6th section
+ */
+import { Button } from "@/components/ui/button"
+import { AvatarImage, Avatar } from "@/components/ui/avatar"
+import { CardContent, Card } from "@/components/ui/card"
+
+export default function Component() {
+  return (
+    <div key="1" className="flex w-full">
+      <div className="flex flex-col w-1/2 p-8 bg-[#0c4a6e] text-white">
+        <h2 className="text-3xl font-bold mb-6">
+          SINGLE DESTINATION WITH COUNTLESS OPPORTUNITIES, KNOW WHAT OUR STUDENTS SAY ABOUT US.
+        </h2>
+        <Button className="self-start mb-8" variant="secondary">
+          More Reviews
+        </Button>
+        <div className="grid grid-cols-2 gap-4">
+          <Card className="bg-white text-black aspect-square relative overflow-hidden">
+            <CardContent className="h-full">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: '"""url(\'/placeholder.svg\')\\""',
+                }}
+              />
+              <Avatar>
+                <AvatarImage
+                  alt="Endless opportunities to learn & improve your professional scope"
+                  src="/placeholder.svg?height=100&width=100"
+                />
+              </Avatar>
+              <h3 className="font-semibold mt-4">Endless opportunities to learn & improve your professional scope</h3>
+              <p className="text-sm">PLACEMENTS | INDUSTRY</p>
+              <p>Text at the bottom of the box</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-white text-black aspect-square relative overflow-hidden">
+            <CardContent className="h-full">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: '"""url(\'/placeholder.svg\')\\""',
+                }}
+              />
+              <Avatar>
+                <AvatarImage
+                  alt="Building confidence with hands-on learning & industry exposure"
+                  src="/placeholder.svg?height=100&width=100"
+                />
+              </Avatar>
+              <h3 className="font-semibold mt-4">Building confidence with hands-on learning & industry exposure</h3>
+              <p className="text-sm">MULTINATIONALS | IT</p>
+              <p>Text at the bottom of the box</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-white text-black aspect-square relative overflow-hidden">
+            <CardContent className="h-full">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: '"""url(\'/placeholder.svg\')\\""',
+                }}
+              />
+              <Avatar>
+                <AvatarImage
+                  alt="Single place with countless opportunities in your area of interest"
+                  src="/placeholder.svg?height=100&width=100"
+                />
+              </Avatar>
+              <h3 className="font-semibold mt-4">Single place with countless opportunities in your area of interest</h3>
+              <p className="text-sm">RESEARCH | CAREER</p>
+              <p>Text at the bottom of the box</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-white text-black aspect-square relative overflow-hidden">
+            <CardContent className="h-full">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: '"""url(\'/placeholder.svg\')\\""',
+                }}
+              />
+              <Avatar>
+                <AvatarImage
+                  alt="Advancing professional career with an internationally-recognized degree"
+                  src="/placeholder.svg?height=100&width=100"
+                />
+              </Avatar>
+              <h3 className="font-semibold mt-4">
+                Advancing professional career with an internationally-recognized degree
+              </h3>
+              <p className="text-sm">RECOGNITION | ACHIEVEMENT</p>
+              <p>Text at the bottom of the box</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+      <div className="flex flex-col w-1/2 p-8 bg-[#1a5a7a] text-white">
+        <div className="grid grid-cols-2 gap-4">
+          <Card className="bg-white text-black aspect-square relative overflow-hidden h-full">
+            <CardContent className="h-full">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: "\"url('/placeholder.svg')\"",
+                }}
+              />
+              <Avatar>
+                <AvatarImage alt="The personal touch" src="/placeholder.svg?height=100&width=100" />
+              </Avatar>
+              <h3 className="font-semibold mt-4">The personal touch</h3>
+              <p className="text-sm">I had the opportunity to be mentored by excellent professors...</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-white text-black aspect-square relative overflow-hidden h-full">
+            <CardContent className="h-full">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: "\"url('/placeholder.svg')\"",
+                }}
+              />
+              <Avatar>
+                <AvatarImage alt="University-life like no other" src="/placeholder.svg?height=100&width=100" />
+              </Avatar>
+              <h3 className="font-semibold mt-4">University-life like no other</h3>
+              <p className="text-sm">
+                Four years at Chandigarh University have been undoubtedly one of the best years...
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="bg-white text-black aspect-square relative overflow-hidden h-full">
+            <CardContent className="h-full">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: "\"url('/placeholder.svg')\"",
+                }}
+              />
+              <Avatar>
+                <AvatarImage alt="Fulfilling needs of the hour" src="/placeholder.svg?height=100&width=100" />
+              </Avatar>
+              <h3 className="font-semibold mt-4">Fulfilling needs of the hour</h3>
+              <p className="text-sm">I am quite impressed with the infrastructure at CU...</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-white text-black aspect-square relative overflow-hidden h-full">
+            <CardContent className="h-full">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: "\"url('/placeholder.svg')\"",
+                }}
+              />
+              <Avatar>
+                <AvatarImage alt="Research oriented" src="/placeholder.svg?height=100&width=100" />
+              </Avatar>
+              <h3 className="font-semibold mt-4">Research oriented</h3>
+              <p className="text-sm">
+                Chandigarh University offers strong research-oriented undergraduate & postgraduate programs...
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
+

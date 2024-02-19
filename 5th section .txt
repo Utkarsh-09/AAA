@@ -1,0 +1,46 @@
+5th section 
+
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/8E9Qxdqw4jR
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ */
+import Link from "next/link"
+
+export default function Component() {
+  return (
+    <section className="w-full py-6 md:py-12 lg:py-16">
+      <div className="container flex flex-col gap-6 px-4 text-center md:gap-10 md:flex-row md:px-6">
+        <div className="flex flex-1 flex-col gap-4 min-h-[300px]">
+          <div className="space-y-3">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">History & Values</h2>
+            <p className="mx-auto max-w-3xl text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+              Learn about our rich history and the values we stand for.
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-1 flex-col gap-4 min-h-[300px]">
+          <div className="space-y-3">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Featured Program</h2>
+            <p className="mx-auto max-w-3xl text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+              Introducing our innovative new program designed to prepare students for the future.
+            </p>
+          </div>
+          <div className="flex flex-1 flex-col justify-end gap-4 min-h-[100px]">
+            <div className="mx-auto flex w-full max-w-[400px] items-center justify-end gap-4">
+              <div className="flex flex-1 justify-end">
+                <Link
+                  className="inline-flex h-8 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white px-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+                  href="#"
+                >
+                  Know More
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+

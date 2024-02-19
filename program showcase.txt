@@ -1,0 +1,121 @@
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/tpvJfA8FWM5
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ * programs at smt
+ */
+import Link from "next/link"
+
+export default function Component() {
+  return (
+    <section className="w-full py-12 lg:py-16 xl:py-24">
+      <div className="container grid gap-6 px-4 md:px-6 lg:gap-10">
+        <div className="space-y-3">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Programs at SMT</h2>
+          <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+            Choose from a variety of programs designed to help you succeed in your career.
+          </p>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="flex flex-col justify-between p-4 border rounded-lg md:flex-row md:p-6 md:gap-6 lg:gap-8 xl:p-8">
+            <div className="space-y-2 text-center md:text-left lg:space-y-3 xl:space-y-4">
+              <h3 className="text-xl font-bold tracking-tight">Bachelor of Science</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Affiliated to University of Science</p>
+            </div>
+            <Link
+              className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white text-sm shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-950 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+              href="#"
+            >
+              Know More
+            </Link>
+          </div>
+          <div className="flex flex-col justify-between p-4 border rounded-lg md:flex-row md:p-6 md:gap-6 lg:gap-8 xl:p-8">
+            <div className="space-y-2 text-center md:text-left lg:space-y-3 xl:space-y-4">
+              <h3 className="text-xl font-bold tracking-tight">Master of Business Administration</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Affiliated to Harvard Business School</p>
+            </div>
+            <Link
+              className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white text-sm shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-950 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+              href="#"
+            >
+              Know More
+            </Link>
+          </div>
+          <div className="flex flex-col justify-between p-4 border rounded-lg md:flex-row md:p-6 md:gap-6 lg:gap-8 xl:p-8">
+            <div className="space-y-2 text-center md:text-left lg:space-y-3 xl:space-y-4">
+              <h3 className="text-xl font-bold tracking-tight">Bachelor of Arts</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Affiliated to University of Arts</p>
+            </div>
+            <Link
+              className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white text-sm shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-950 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+              href="#"
+            >
+              Know More
+            </Link>
+          </div>
+          <div className="flex flex-col justify-between p-4 border rounded-lg md:flex-row md:p-6 md:gap-6 lg:gap-8 xl:p-8">
+            <div className="space-y-2 text-center md:text-left lg:space-y-3 xl:space-y-4">
+              <h3 className="text-xl font-bold tracking-tight">Master of Science</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Affiliated to University of Science</p>
+            </div>
+            <Link
+              className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white text-sm shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-950 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+              href="#"
+            >
+              Know More
+            </Link>
+          </div>
+          <div className="flex flex-col justify-between p-4 border rounded-lg md:flex-row md:p-6 md:gap-6 lg:gap-8 xl:p-8">
+            <div className="space-y-2 text-center md:text-left lg:space-y-3 xl:space-y-4">
+              <h3 className="text-xl font-bold tracking-tight">Bachelor of Business Administration</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Affiliated to Harvard Business School</p>
+            </div>
+            <Link
+              className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white text-sm shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-950 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+              href="#"
+            >
+              Know More
+            </Link>
+          </div>
+          <div className="flex flex-col justify-between p-4 border rounded-lg md:flex-row md:p-6 md:gap-6 lg:gap-8 xl:p-8">
+            <div className="space-y-2 text-center md:text-left lg:space-y-3 xl:space-y-4">
+              <h3 className="text-xl font-bold tracking-tight">Master of Arts</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Affiliated to University of Arts</p>
+            </div>
+            <Link
+              className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white text-sm shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-950 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+              href="#"
+            >
+              Know More
+            </Link>
+          </div>
+          <div className="flex flex-col justify-between p-4 border rounded-lg md:flex-row md:p-6 md:gap-6 lg:gap-8 xl:p-8">
+            <div className="space-y-2 text-center md:text-left lg:space-y-3 xl:space-y-4">
+              <h3 className="text-xl font-bold tracking-tight">Bachelor of Commerce</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Affiliated to University of Commerce</p>
+            </div>
+            <Link
+              className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white text-sm shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-950 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+              href="#"
+            >
+              Know More
+            </Link>
+          </div>
+          <div className="flex flex-col justify-between p-4 border rounded-lg md:flex-row md:p-6 md:gap-6 lg:gap-8 xl:p-8">
+            <div className="space-y-2 text-center md:text-left lg:space-y-3 xl:space-y-4">
+              <h3 className="text-xl font-bold tracking-tight">Master of Commerce</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Affiliated to University of Commerce</p>
+            </div>
+            <Link
+              className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white text-sm shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-950 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+              href="#"
+            >
+              Know More
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+

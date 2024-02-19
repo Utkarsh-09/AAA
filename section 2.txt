@@ -1,0 +1,32 @@
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/T2QYDesrVV8
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ */
+export default function Component() {
+  return (
+    <section className="w-full">
+      <div className="relative w-full aspect-[16/9] overflow-hidden">
+        <span className="absolute inset-0 object-cover w-full h-full rounded-md bg-muted" />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="flex flex-col items-center justify-center absolute inset-0 p-4 space-y-4 text-center">
+          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none text-gray-100 dark:text-gray-900">
+            Prestige University
+          </h1>
+          <div className="mx-auto grid max-w-screen-sm gap-4 sm:gap-8 lg:gap-12">
+            <p className="text-base leading-loose text-gray-100/80 md:text-lg dark:text-gray-100/80">
+              A place of academic excellence and innovation
+            </p>
+            <p className="text-base leading-loose text-gray-100/80 md:text-lg dark:text-gray-100/80">
+              Fostering leadership and creativity
+            </p>
+            <p className="text-base leading-loose text-gray-100/80 md:text-lg dark:text-gray-100/80">
+              Embracing diversity and community
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
